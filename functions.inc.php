@@ -3,7 +3,7 @@ function enableMatrixToolOutput() {
 	global $pluginDirectory,$fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix;
 
 	$cmdEnable = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script. " --blockname ".$Matrix." --enable 1";
-	logEntry("P10 Enable cmd: ".$cmdEnable);
+	logEntry("Matrix Enable cmd: ".$cmdEnable);
 	//echo "p10 enable: ".$cmdEnable."\n";
 
 	exec($cmdEnable,$enableOutput);
@@ -12,7 +12,19 @@ function enableMatrixToolOutput() {
 	//print_r($enableOutput);
 
 }
+function disableMatrixToolOutput() {
+	global $pluginDirectory,$fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix;
 
+	$cmdEnable = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script. " --blockname ".$Matrix." --enable 0";
+	logEntry("Matrix disable cmd: ".$cmdEnable);
+	//echo "p10 enable: ".$cmdEnable."\n";
+
+	exec($cmdEnable,$enableOutput);
+	//echo "Enabled \n";
+
+	//print_r($enableOutput);
+
+}
 function outputMessages($queueMessages) {
 
 	global $pluginDirectory,$MESSAGE_TIMEOUT, $fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix,$MATRIX_FONT,$MATRIX_FONT_SIZE,$MATRIX_PIXELS_PER_SECOND;
@@ -57,7 +69,7 @@ function outputMessages($queueMessages) {
 
 		sleep(1);
 		clearMatrix();
-
+	
 
 
 		//$clearLineCmd = "/bin/echo \"\" > ".$matrixFIFO;

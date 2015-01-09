@@ -1,6 +1,9 @@
 #!/usr/bin/php
 <?
-//error_reporting(0);
+error_reporting(0);
+
+//TODO:
+
 
 $pluginName ="MatrixMessage";
 $myPid = getmypid();
@@ -105,7 +108,7 @@ if($MESSAGE_QUEUE_PLUGIN_ENABLED) {
         lockHelper::unlock();
         exit(0);
 }
-
+disableMatrixToolOutput();
 
 lockHelper::unlock();
 
