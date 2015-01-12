@@ -98,9 +98,10 @@ function printPluginsInstalled()
 
 {
 
-	global $PLUGINS,$pluginDirectory;
+	global $PLUGINS,$pluginDirectory,$EXCLUDE_PLUGIN_ARRAY;
 
-	include_once 'excluded_plugins.inc.php';
+	//print_r($EXCLUDE_PLUGIN_ARRAY);
+	
 	//get all plugins
 	
 	$PLUGINS_INSTALLED = directoryToArray($pluginDirectory);//, $recursive)($pluginDirectory);
@@ -114,17 +115,19 @@ function printPluginsInstalled()
 
 
 	for($i=0;$i<=count($PLUGINS_INSTALLED)-1;$i++) {
+		
+		//echo "Plugininstall temp: ".$PLUGIN_INSTALLED_TEMP."<br/> \n";
 		$PLUGIN_INSTALLED_TEMP = basename($PLUGINS_INSTALLED[$i]);
 
-		if(in_array($PLUGIN_INSTALLED_TEMP,$EXCLUDE_PLUGIN_ARRAY)) {
-			continue;
-		}
-		if(in_array($PLUGIN_INSTALLED_TEMP,$PLUGINS_READ)) {
+		if(!in_array($PLUGIN_INSTALLED_TEMP,$EXCLUDE_PLUGIN_ARRAY)) {
+			
+			if(in_array($PLUGIN_INSTALLED_TEMP,$PLUGINS_READ)) {
 				
-			echo "<option selected value=\"" . $PLUGIN_INSTALLED_TEMP . "\">" . $PLUGIN_INSTALLED_TEMP . "</option>";
-		} else {
+				echo "<option selected value=\"" . $PLUGIN_INSTALLED_TEMP . "\">" . $PLUGIN_INSTALLED_TEMP . "</option>";
+			} else {
 
-			echo "<option value=\"" . $PLUGIN_INSTALLED_TEMP . "\">" . $PLUGIN_INSTALLED_TEMP . "</option>";
+				echo "<option value=\"" . $PLUGIN_INSTALLED_TEMP . "\">" . $PLUGIN_INSTALLED_TEMP . "</option>";
+			}
 		}
 
 	}

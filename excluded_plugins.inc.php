@@ -1,5 +1,5 @@
 <?php
-//put the plugins that should NOT be included
-$EXCLUDE_PLUGIN_ARRAY = array("MessageQueue");
+//put the plugins that should NOT be included in the matrix output
+$EXCLUDE_PLUGIN_ARRAY = array("MatrixMessage","fpp-matrixtools","edmrds","MessageQueue");
 
 ?>

@@ -10,7 +10,7 @@ $FPP_MATRIX_PLUGIN_ENABLED=false;
 $logFile = $settings['logDirectory']."/".$pluginName.".log";
 
 
-
+include_once 'excluded_plugins.inc.php';
 
 
 if(isset($_POST['submit']))
