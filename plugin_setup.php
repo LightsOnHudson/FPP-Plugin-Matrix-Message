@@ -3,6 +3,8 @@
 
 include_once "/opt/fpp/www/common.php";
 include_once "functions.inc.php";
+include_once "MatrixFunctions.inc.php";
+
 $pluginName = "MatrixMessage";
 $fpp_matrixtools_Plugin = "fpp-matrixtools";
 $fpp_matrixtools_Plugin_Script = "scripts/matrixtools";
@@ -10,7 +12,7 @@ $FPP_MATRIX_PLUGIN_ENABLED=false;
 $logFile = $settings['logDirectory']."/".$pluginName.".log";
 
 
-include_once 'excluded_plugins.inc.php';
+
 
 
 if(isset($_POST['submit']))
@@ -32,11 +34,14 @@ if(isset($_POST['submit']))
 	
 	
 	
-	$PLUGINS = urldecode(ReadSettingFromFile("PLUGINS",$pluginName));
-	$ENABLED = urldecode(ReadSettingFromFile("ENABLED",$pluginName));
-
-	$Matrix = urldecode(ReadSettingFromFile("MATRIX",$pluginName));
-	$LAST_READ = urldecode(ReadSettingFromFile("LAST_READ",$pluginName));
+//	$PLUGINS = urldecode(ReadSettingFromFile("PLUGINS",$pluginName));
+$PLUGINS = $pluginSettings['PLUGINS'];
+//	$ENABLED = urldecode(ReadSettingFromFile("ENABLED",$pluginName));
+$ENABLED = $pluginSettings['ENABLED'];
+//	$Matrix = urldecode(ReadSettingFromFile("MATRIX",$pluginName));
+$Matrix = $pluginSettings['MATRIX'];
+//	$LAST_READ = urldecode(ReadSettingFromFile("LAST_READ",$pluginName));
+$LAST_READ = $pluginSettings['LAST_READ'];
 	
 //	echo "Matrix : ".$Matrix."<br/>\n";
 
@@ -46,6 +51,8 @@ if(isset($_POST['submit']))
 	{
 		logEntry($pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script." EXISTS: Enabling");
 		$FPP_MATRIX_PLUGIN_ENABLED=true;
+		//$cmdGetMatrixList = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script. " --getblocklist";
+		//exec($cmdGetMatrixList,$blockOutput);
 	
 	} else {
 		logEntry("FPP Matrix tools plugin is not installed, cannot use this plugin with out it");
@@ -79,7 +86,7 @@ if(isset($_POST['submit']))
 
 
 
-<form method="post" action="http://<? echo $_SERVER['SERVER_NAME']?>/plugin.php?plugin=<?echo $pluginName;?>&page=plugin_setup.php">
+<form method="post" action="http://<? echo $_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT']?>/plugin.php?plugin=<?echo $pluginName;?>&page=plugin_setup.php">
 
 
 <?
@@ -101,39 +108,9 @@ echo "<p/> \n";
 
 echo "Matrix Name: ";
 
-PrintMatrixList();
+PrintMatrixList("MATRIX",$Matrix);
 
-function PrintMatrixList()
-{
-	global $pluginDirectory,$fpp_matrixtools_Plugin,$fpp_matrixtools_Plugin_Script,$Matrix;
 
-	
-
-	$cmdGetMatrixList = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script. " --getblocklist";
-	exec($cmdGetMatrixList,$blockOutput);
-	//print_r($blockOutput);
-	
-	
-	//$matrixBlocks=array();
-	echo "<select name=\"MATRIX\">";
-	
-	for($i=0;$i<=count($blockOutput)-1;$i++) {
-	
-		$blockParts = explode(":",$blockOutput[$i]);
-		
-		//echo "blockPart 0: ".$blockParts[0]. " : ".$blockParts[1]."<br/> \n";
-		
-		if(trim(strtoupper($blockParts[0]))=="NAME") {
-			if(trim($blockParts[1])==$Matrix) {
-				echo "<option selected value=\"".trim($Matrix)."\">".trim($Matrix)."</option>\n";
-			} else {
-				echo "<option value=\"".trim($blockParts[1])."\">".trim($blockParts[1])."</option>\n";
-			}
-		}
-	}	
-	
-		echo "</select>";
-}
 echo "<p/>\n";
 echo "Include Plugins in Matrix output: \n";
 printPluginsInstalled();

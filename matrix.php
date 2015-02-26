@@ -14,6 +14,7 @@ $skipJSsettings = 1;
 include_once("/opt/fpp/www/config.php");
 include_once("/opt/fpp/www/common.php");
 include_once("functions.inc.php");
+include_once("MatrixFunctions.inc.php");
 include_once("excluded_plugins.inc.php");
 require ("lock.helper.php");
 define('LOCK_DIR', '/tmp/');
@@ -36,25 +37,40 @@ if(($pid = lockHelper::lock()) === FALSE) {
 	exit(0);
 
 }
-$ENABLED = trim(urldecode(ReadSettingFromFile("ENABLED",$pluginName)));
+
+$pluginConfigFile = $settings['configDirectory'] . "/plugin." .$pluginName;
+if (file_exists($pluginConfigFile))
+	$pluginSettings = parse_ini_file($pluginConfigFile);
+
+//$ENABLED = trim(urldecode(ReadSettingFromFile("ENABLED",$pluginName)));
+$ENABLED = $pluginSettings['ENABLED'];
 
 
 
-if($ENABLED != "on" && $ENABLED != "1") {
+if($ENABLED != "1") {
 	logEntry("Plugin Status: DISABLED Please enable in Plugin Setup to use & Restart FPPD Daemon");
 	lockHelper::unlock();
 	exit(0);
 
 }
 
+$pluginConfigFile = $settings['configDirectory'] . "/plugin." .$pluginName;
+if (file_exists($pluginConfigFile))
+	$pluginSettings = parse_ini_file($pluginConfigFile);
 
-$MATRIX_PLUGIN_OPTIONS = urldecode(ReadSettingFromFile("PLUGINS",$pluginName));
+
+//$MATRIX_PLUGIN_OPTIONS = urldecode(ReadSettingFromFile("PLUGINS",$pluginName));
+
+$MATRIX_PLUGIN_OPTIONS = $pluginSettings['PLUGINS'];
+
 $MATRIX_FONT= "fixed";
 $MATRIX_FONT_SIZE= 12;
 $MATRIX_PIXELS_PER_SECOND = 20;
 
 
-$Matrix = urldecode(ReadSettingFromFile("MATRIX",$pluginName));
+//$Matrix = urldecode(ReadSettingFromFile("MATRIX",$pluginName));
+
+$Matrix = $pluginSettings['MATRIX'];
 
 if(trim($Matrix == "")) {
 	logEntry("No Matrix name is  configured for output: exiting");
@@ -64,8 +80,9 @@ if(trim($Matrix == "")) {
 	logEntry("Configured matrix name: ".$Matrix);
 	
 }
-$MATRIX_MESSAGE_TIMEOUT = urldecode(ReadSettingFromFile("MESSAGE_TIMEOUT",$pluginName));
 
+//$MATRIX_MESSAGE_TIMEOUT = urldecode(ReadSettingFromFile("MESSAGE_TIMEOUT",$pluginName));
+$MATRIX_MESSAGE_TIMEOUT = $pluginSettings['MESSAGE_TIMEOUT'];
 
 if($MATRIX_MESSAGE_TIMEOUT == "" || $MATRIX_MESSAGE_TIMEOUT == null) {
 	$MESSAGE_TIMEOUT = 10;

@@ -1,30 +1,5 @@
 <?php
-function enableMatrixToolOutput() {
-	global $pluginDirectory,$fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix;
 
-	$cmdEnable = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script. " --blockname ".$Matrix." --enable 1";
-	logEntry("Matrix Enable cmd: ".$cmdEnable);
-	//echo "p10 enable: ".$cmdEnable."\n";
-
-	exec($cmdEnable,$enableOutput);
-	//echo "Enabled \n";
-
-	//print_r($enableOutput);
-
-}
-function disableMatrixToolOutput() {
-	global $pluginDirectory,$fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix;
-
-	$cmdEnable = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script. " --blockname ".$Matrix." --enable 0";
-	logEntry("Matrix disable cmd: ".$cmdEnable);
-	//echo "p10 enable: ".$cmdEnable."\n";
-
-	exec($cmdEnable,$enableOutput);
-	//echo "Enabled \n";
-
-	//print_r($enableOutput);
-
-}
 function outputMessages($queueMessages) {
 
 	global $pluginDirectory,$MESSAGE_TIMEOUT, $fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix,$MATRIX_FONT,$MATRIX_FONT_SIZE,$MATRIX_PIXELS_PER_SECOND;
@@ -80,28 +55,16 @@ function outputMessages($queueMessages) {
 
 }
 
-function clearMatrix() {
 
-	global $pluginDirectory, $fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix;
-//	$cmdClear = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script." --blockname \"".$Matrix."\" --clearblock";
-	
-	$cmdClear = "/opt/fpp/bin/fppmm -m ".$Matrix." -s 0";
-	
-
-	logEntry("P10 Clear cmd: ".$cmdClear);
-
-	exec($cmdClear,$clearOutput);
-}
 
 function printPluginsInstalled()
 
 
 {
 
-	global $PLUGINS,$pluginDirectory,$EXCLUDE_PLUGIN_ARRAY;
+	global $PLUGINS,$pluginDirectory;
 
-	//print_r($EXCLUDE_PLUGIN_ARRAY);
-	
+	include_once 'excluded_plugins.inc.php';
 	//get all plugins
 	
 	$PLUGINS_INSTALLED = directoryToArray($pluginDirectory);//, $recursive)($pluginDirectory);
@@ -115,19 +78,17 @@ function printPluginsInstalled()
 
 
 	for($i=0;$i<=count($PLUGINS_INSTALLED)-1;$i++) {
-		
-		//echo "Plugininstall temp: ".$PLUGIN_INSTALLED_TEMP."<br/> \n";
 		$PLUGIN_INSTALLED_TEMP = basename($PLUGINS_INSTALLED[$i]);
 
-		if(!in_array($PLUGIN_INSTALLED_TEMP,$EXCLUDE_PLUGIN_ARRAY)) {
-			
-			if(in_array($PLUGIN_INSTALLED_TEMP,$PLUGINS_READ)) {
+		if(in_array($PLUGIN_INSTALLED_TEMP,$EXCLUDE_PLUGIN_ARRAY)) {
+			continue;
+		}
+		if(in_array($PLUGIN_INSTALLED_TEMP,$PLUGINS_READ)) {
 				
-				echo "<option selected value=\"" . $PLUGIN_INSTALLED_TEMP . "\">" . $PLUGIN_INSTALLED_TEMP . "</option>";
-			} else {
+			echo "<option selected value=\"" . $PLUGIN_INSTALLED_TEMP . "\">" . $PLUGIN_INSTALLED_TEMP . "</option>";
+		} else {
 
-				echo "<option value=\"" . $PLUGIN_INSTALLED_TEMP . "\">" . $PLUGIN_INSTALLED_TEMP . "</option>";
-			}
+			echo "<option value=\"" . $PLUGIN_INSTALLED_TEMP . "\">" . $PLUGIN_INSTALLED_TEMP . "</option>";
 		}
 
 	}
