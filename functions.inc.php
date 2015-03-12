@@ -24,7 +24,7 @@ function createMatrixEventFile() {
 		$eventData .= "name=".$EVENT_KEY."'\n";
 		$eventData .= "effect=''\n";
 		$eventData .= "startChannel=\n";
-		$eventData .= "script='$EVENT_KEY'.sh'\n";
+		$eventData .= "script='".$EVENT_KEY.".sh'\n";
 
 		//	echo "eventData: ".$eventData."<br/>\n";
 		file_put_contents($eventDirectory."/".$nextEventFilename, $eventData);
