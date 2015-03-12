@@ -3,6 +3,7 @@
 
 include_once "/opt/fpp/www/common.php";
 include_once "functions.inc.php";
+include_once "commonFunctions.inc.php";
 include_once "MatrixFunctions.inc.php";
 
 $pluginName = "MatrixMessage";
