@@ -21,7 +21,7 @@ function createMatrixEventFile() {
 		$eventData  ="";
 		$eventData  = "majorID=".(int)$MAJOR."\n";
 		$eventData .= "minorID=".(int)$MINOR."\n";
-		$eventData .= "name=".$EVENT_KEY."'\n";
+		$eventData .= "name='".$EVENT_KEY."'\n";
 		$eventData .= "effect=''\n";
 		$eventData .= "startChannel=\n";
 		$eventData .= "script='".$EVENT_KEY.".sh'\n";
