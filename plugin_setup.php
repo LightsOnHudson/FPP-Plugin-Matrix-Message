@@ -53,7 +53,7 @@ $LAST_READ = $pluginSettings['LAST_READ'];
 		$FPP_MATRIX_PLUGIN_ENABLED=true;
 		//$cmdGetMatrixList = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script. " --getblocklist";
 		//exec($cmdGetMatrixList,$blockOutput);
-	
+		createMatrixEventFile();
 	} else {
 		logEntry("FPP Matrix tools plugin is not installed, cannot use this plugin with out it");
 		echo "FPP Matrix Tools plugin is not installed. Install the plugin and revisit this page to continue";

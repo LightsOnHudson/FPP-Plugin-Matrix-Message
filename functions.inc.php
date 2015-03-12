@@ -1,5 +1,47 @@
 <?php
 
+function createMatrixEventFile() {
+
+	global $eventDirectory,$pluginDirectory,$pluginName,$scriptDirectory;
+
+
+
+	//echo "next event file name available: ".$nextEventFilename."\n";
+
+	$EVENT_KEY = "RUN-MATRIX";
+
+	//check to see that the file doesnt already exist - do a grep and return contents
+	$EVENT_CHECK = checkEventFilesForKey($EVENT_KEY);
+	if(!$EVENT_CHECK)
+	{
+			
+		$nextEventFilename = getNextEventFilename();
+		$MAJOR=substr($nextEventFilename,0,2);
+		$MINOR=substr($nextEventFilename,3,2);
+		$eventData  ="";
+		$eventData  = "majorID=".(int)$MAJOR."\n";
+		$eventData .= "minorID=".(int)$MINOR."\n";
+		$eventData .= "name='PROJECTOR-".$key."'\n";
+		$eventData .= "effect=''\n";
+		$eventData .= "startChannel=\n";
+		$eventData .= "script='$EVENT_KEY'.sh'\n";
+
+		//	echo "eventData: ".$eventData."<br/>\n";
+		file_put_contents($eventDirectory."/".$nextEventFilename, $eventData);
+
+		$scriptCMD = $pluginDirectory."/".$pluginName."/"."matrix.php";
+		createScriptFile($EVENT_KEY.".sh",$scriptCMD);
+	}
+
+
+	//echo "$key => $val\n";
+		
+
+
+
+
+
+}
 function outputMessages($queueMessages) {
 
 	global $pluginDirectory,$MESSAGE_TIMEOUT, $fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix,$MATRIX_FONT,$MATRIX_FONT_SIZE,$MATRIX_PIXELS_PER_SECOND;
