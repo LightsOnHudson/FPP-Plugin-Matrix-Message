@@ -12,8 +12,20 @@ $fpp_matrixtools_Plugin_Script = "scripts/matrixtools";
 $FPP_MATRIX_PLUGIN_ENABLED=false;
 $logFile = $settings['logDirectory']."/".$pluginName.".log";
 
+$pluginUpdateFile = $settings['pluginDirectory']."/".$pluginName."/"."pluginUpdate.inc";
 
 
+$gitURL = "https://github.com/LightsOnHudson/FPP-Plugin-Matrix-Message.git";
+
+logEntry("plugin update file: ".$pluginUpdateFile);
+
+if(isset($_POST['updatePlugin']))
+{
+	logEntry("updating plugin...");
+	$updateResult = updatePluginFromGitHub($gitURL, $branch="master", $pluginName);
+
+	echo $updateResult."<br/> \n";
+}
 
 
 if(isset($_POST['submit']))
@@ -119,11 +131,15 @@ printPluginsInstalled();
 ?>
 <p/>
 <input id="submit_button" name="submit" type="submit" class="buttons" value="Save Config">
-
+<?
+ if(file_exists($pluginUpdateFile))
+ {
+ 	//echo "updating plugin included";
+	include $pluginUpdateFile;
+}
+?>
+<p>To report a bug, please file it against <?php echo $gitURL;?>
 </form>
-
-
-<p>To report a bug, please file it against the sms Control plugin project on Git: https://github.com/LightsOnHudson/FPP-Plugin-Matrix
 
 </fieldset>
 </div>
