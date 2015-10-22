@@ -63,9 +63,11 @@ if (file_exists($pluginConfigFile))
 
 $MATRIX_PLUGIN_OPTIONS = $pluginSettings['PLUGINS'];
 
-$MATRIX_FONT= "fixed";
-$MATRIX_FONT_SIZE= 12;
-$MATRIX_PIXELS_PER_SECOND = 20;
+$MATRIX_FONT= $pluginSettings['FONT'];
+
+$MATRIX_FONT_SIZE= $pluginSettings['FONT_SIZE'];
+$COLOR= urldecode($pluginSettings['COLOR']);
+$MATRIX_PIXELS_PER_SECOND = $pluginSettings['PIXELS_PER_SECOND'];
 
 
 //$Matrix = urldecode(ReadSettingFromFile("MATRIX",$pluginName));

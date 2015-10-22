@@ -36,6 +36,10 @@ if(isset($_POST['submit']))
 	WriteSettingToFile("PLUGINS",$PLUGINS,$pluginName);
 	
 	WriteSettingToFile("ENABLED",urlencode($_POST["ENABLED"]),$pluginName);
+	WriteSettingToFile("FONT",urlencode($_POST["FONT"]),$pluginName);
+	WriteSettingToFile("FONT_SIZE",urlencode($_POST["FONT_SIZE"]),$pluginName);
+	WriteSettingToFile("PIXELS_PER_SECOND",urlencode($_POST["PIXELS_PER_SECOND"]),$pluginName);
+	WriteSettingToFile("COLOR",urlencode($_POST["COLOR"]),$pluginName);
 
 	
 	WriteSettingToFile("LAST_READ",urlencode($_POST["LAST_READ"]),$pluginName);
@@ -55,6 +59,12 @@ $ENABLED = $pluginSettings['ENABLED'];
 $Matrix = $pluginSettings['MATRIX'];
 //	$LAST_READ = urldecode(ReadSettingFromFile("LAST_READ",$pluginName));
 $LAST_READ = $pluginSettings['LAST_READ'];
+$FONT= $pluginSettings['FONT'];
+$FONT_SIZE= $pluginSettings['FONT_SIZE'];
+$PIXELS_PER_SECOND= $pluginSettings['PIXELS_PER_SECOND'];
+$COLOR= urldecode($pluginSettings['COLOR']);
+
+
 	
 //	echo "Matrix : ".$Matrix."<br/>\n";
 
@@ -125,9 +135,34 @@ PrintMatrixList("MATRIX",$Matrix);
 
 
 echo "<p/>\n";
+
 echo "Include Plugins in Matrix output: \n";
 printPluginsInstalled();
 
+echo "<p/> \n";
+
+echo "Font:  \n";
+printFontsInstalled("FONT",$FONT);
+
+echo "<p/> \n";
+echo "Font Size: \n";
+printFontSizes("FONT_SIZE",$FONT_SIZE);
+
+echo "<p/> \n";
+
+echo "Pixels per second: \n";
+printPixelsPerSecond("PIXELS_PER_SECOND",$PIXELS_PER_SECOND);
+
+echo "<p/> \n";
+
+echo "Color: (#RRGGBB or common name 'red') \n";
+
+if($COLOR == "") {
+	//set a default color
+	$COLOR = "yellow";
+}
+echo "<input type=\"text\" name=\"COLOR\" value=\"".$COLOR."\"> \n";
+echo "<p/> \n";
 ?>
 <p/>
 <input id="submit_button" name="submit" type="submit" class="buttons" value="Save Config">

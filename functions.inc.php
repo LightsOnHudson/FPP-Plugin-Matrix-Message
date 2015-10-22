@@ -44,7 +44,7 @@ function createMatrixEventFile() {
 }
 function outputMessages($queueMessages) {
 
-	global $pluginDirectory,$MESSAGE_TIMEOUT, $fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix,$MATRIX_FONT,$MATRIX_FONT_SIZE,$MATRIX_PIXELS_PER_SECOND;
+	global $pluginDirectory,$MESSAGE_TIMEOUT, $fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix,$MATRIX_FONT,$MATRIX_FONT_SIZE,$MATRIX_PIXELS_PER_SECOND,$COLOR;
 
 	//print_r($queueMessages);
 
@@ -69,7 +69,7 @@ function outputMessages($queueMessages) {
 
 		//echo "Sending message: ".$messageText." to matrix FIFO\n";
 
-		$cmd = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script." --blockname \"".$Matrix."\" --font ".$MATRIX_FONT." --fontsize ".$MATRIX_FONT_SIZE." --pixelspersecond ".$MATRIX_PIXELS_PER_SECOND. " --message \"".$messageText."\"";
+		$cmd = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script." --blockname \"".$Matrix."\" --color '".$COLOR."' --font ".$MATRIX_FONT." --fontsize ".$MATRIX_FONT_SIZE." --pixelspersecond ".$MATRIX_PIXELS_PER_SECOND. " --message \"".$messageText."\"";
 
 		//echo "p10 output cmd: ".$cmd."\n";
 
@@ -136,6 +136,87 @@ function printPluginsInstalled()
 	}
 	echo "</select>";
 }
+
+function printPixelsPerSecond($ELEMENT, $PIXELS_PER_SECOND)
+
+
+{
+
+        global $PLUGINS,$pluginDirectory;
+
+        $MAX_PIXELS_PER_SECOND = 20;
+
+        echo "<select name=\"".$ELEMENT."\">";
+
+
+        for($i=0;$i<=$MAX_PIXELS_PER_SECOND-1;$i++) {
+
+                        if($i == $PIXELS_PER_SECOND) {
+
+                                 echo "<option selected value=\"" . $i. "\">" . $i. "</option>";
+                       } else {
+                        echo "<option value=\"" . $i. "\">" . $i. "</option>";
+                        }
+        }
+        echo "</select>";
+}
+function printFontSizes($ELEMENT, $FONT_SIZE)
+
+
+{
+
+        global $PLUGINS,$pluginDirectory;
+
+	$MAX_FONT_SIZE = 64;
+
+        echo "<select name=\"".$ELEMENT."\">";
+
+
+        for($i=0;$i<=$MAX_FONT_SIZE-1;$i++) {
+
+                        if($i == $FONT_SIZE) {
+
+                                 echo "<option selected value=\"" . $i. "\">" . $i. "</option>";
+                       } else {
+                        echo "<option value=\"" . $i. "\">" . $i. "</option>";
+                        }
+        }
+        echo "</select>";
+}
+
+
+
+
+function printFontsInstalled($ELEMENT, $FONT)
+
+
+{
+
+        global $PLUGINS,$pluginDirectory;
+	$fontsDirectory = "/usr/share/fonts/truetype/";
+
+        $FONTS_INSTALLED = directoryToArray($fontsDirectory, true);//, $recursive)($pluginDirectory);
+
+
+        //print_r($PLUGINS_READ);
+
+        echo "<select name=\"".$ELEMENT."\">";
+
+
+        for($i=0;$i<=count($FONTS_INSTALLED)-1;$i++) {
+		$FONTINFO = pathinfo($FONTS_INSTALLED[$i]);
+                $FONTS_INSTALLED_TEMP = basename($FONTS_INSTALLED[$i],'.'.$FONTINFO['extension']);
+
+			if($FONTS_INSTALLED_TEMP == $FONT) {
+			
+                       		 echo "<option selected value=\"" . $FONTS_INSTALLED_TEMP . "\">" . $FONTS_INSTALLED_TEMP . "</option>";
+                       } else { 
+			echo "<option value=\"" . $FONTS_INSTALLED_TEMP . "\">" . $FONTS_INSTALLED_TEMP . "</option>";
+			}
+        }
+        echo "</select>";
+}
+
 
 //is fppd running?????
 function isFPPDRunning() {

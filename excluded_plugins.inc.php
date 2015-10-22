@@ -1,6 +1,6 @@
 <?php
 //put the plugins that should NOT be included in the matrix output
+$EXCLUDE_PLUGIN_ARRAY = array("BetaBrite","MatrixMessage","fpp-matrixtools","edmrds","MessageQueue","ProjectorControl","Nagios","LiveMatrix");
 
-$EXCLUDE_PLUGIN_ARRAY = array("Tweeter",".DS_Store","BetaBrite","ProjectorControl","CronEditor","MatrixMessage","fpp-matrixtools","edmrds","MessageQueue");
-
+//TEST GIT
 ?>
