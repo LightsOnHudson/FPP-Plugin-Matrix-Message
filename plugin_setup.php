@@ -1,5 +1,5 @@
 <?php
-//$DEBUG=true;
+$DEBUG=true;
 
 include_once "/opt/fpp/www/common.php";
 include_once "functions.inc.php";

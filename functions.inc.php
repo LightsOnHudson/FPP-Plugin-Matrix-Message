@@ -144,7 +144,8 @@ function printPixelsPerSecond($ELEMENT, $PIXELS_PER_SECOND)
 
         global $PLUGINS,$pluginDirectory;
 
-        $MAX_PIXELS_PER_SECOND = 20;
+        //updated to 40, Nov 9 2015
+        $MAX_PIXELS_PER_SECOND = 40;
 
         echo "<select name=\"".$ELEMENT."\">";
 
@@ -192,9 +193,15 @@ function printFontsInstalled($ELEMENT, $FONT)
 
 {
 
-        global $PLUGINS,$pluginDirectory;
+        global $DEBUG,$PLUGINS,$pluginDirectory;
 	$fontsDirectory = "/usr/share/fonts/truetype/";
 
+	//$FONTS_LIST_CMD = "/usr/bin/fc-list";
+	
+	//$FONT_LIST = system($FONTS_LIST_CMD);
+	//if($DEBUG)
+	//	print_r($FONT_LIST);
+	
         $FONTS_INSTALLED = directoryToArray($fontsDirectory, true);//, $recursive)($pluginDirectory);
 
 
