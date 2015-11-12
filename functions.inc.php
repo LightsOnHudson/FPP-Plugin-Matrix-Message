@@ -54,7 +54,7 @@ function outputMessages($queueMessages) {
 	}
 	
 
-	If ($COLOR == "RANDOM") {
+	If (strtoupper(trim($COLOR)) == "RANDOM") {
 		//print_r ("Start counter");
 		$counter=rand(0,5);
 		//print_r ("Start switch");
