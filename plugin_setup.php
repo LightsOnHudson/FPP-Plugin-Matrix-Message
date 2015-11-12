@@ -155,7 +155,7 @@ printPixelsPerSecond("PIXELS_PER_SECOND",$PIXELS_PER_SECOND);
 
 echo "<p/> \n";
 
-echo "Color: (#RRGGBB or common name 'red') \n";
+echo "Color: (#RRGGBB or common name 'red' or for a random color type 'random') \n";
 
 if($COLOR == "") {
 	//set a default color

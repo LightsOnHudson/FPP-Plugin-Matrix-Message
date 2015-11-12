@@ -52,6 +52,43 @@ function outputMessages($queueMessages) {
 		//	echo "No messages to output \n";
 		return;
 	}
+	
+
+	If ($COLOR == "RANDOM") {
+		//print_r ("Start counter");
+		$counter=rand(0,5);
+		//print_r ("Start switch");
+		switch ($counter) {
+			case "0":
+				$mycolor = "indigo";
+				//echo $mycolor;
+				break;
+			case "1":
+				$mycolor = "red";
+				//echo $mycolor;
+				break;
+			case "2":
+				$mycolor = "green";
+				//echo $mycolor;
+				break;
+			case "3":
+				$mycolor = "blue";
+				//echo $mycolor;
+				break;
+			case "4":
+				$mycolor = "yellow";
+				//echo $mycolor;
+				break;
+			case "5":
+				$mycolor = "purple";
+				//echo $mycolor;
+				break;
+		}
+		//print_r ("End switch");
+		$COLOR=($mycolor);
+		//print_r ($COLOR);
+	} 
+	
 
 	enableMatrixToolOutput();
 
