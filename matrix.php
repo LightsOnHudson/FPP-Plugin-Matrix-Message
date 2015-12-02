@@ -73,6 +73,8 @@ $INCLUDE_TIME = urldecode($pluginSettings['INCLUDE_TIME']);
 $TIME_FORMAT = urldecode($pluginSettings['TIME_FORMAT']);
 $HOUR_FORMAT = urldecode($pluginSettings['HOUR_FORMAT']);
 
+$SEPARATOR = "|";
+
 //$Matrix = urldecode(ReadSettingFromFile("MATRIX",$pluginName));
 
 $Matrix = $pluginSettings['MATRIX'];

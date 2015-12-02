@@ -107,7 +107,7 @@ function createMatrixEventFile() {
 }
 function outputMessages($queueMessages) {
 
-	global $pluginDirectory,$MESSAGE_TIMEOUT, $fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix,$MATRIX_FONT,$MATRIX_FONT_SIZE,$MATRIX_PIXELS_PER_SECOND,$COLOR, $INCLUDE_TIME, $TIME_FORMAT, $HOUR_FORMAT;
+	global $pluginDirectory,$MESSAGE_TIMEOUT, $fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix,$MATRIX_FONT,$MATRIX_FONT_SIZE,$MATRIX_PIXELS_PER_SECOND,$COLOR, $INCLUDE_TIME, $TIME_FORMAT, $HOUR_FORMAT,$SEPARATOR;
 
 	//print_r($queueMessages);
 
@@ -175,6 +175,8 @@ function outputMessages($queueMessages) {
 		}
 		
 		logEntry( "Message time: ".$messageTime);
+		
+		$messageText = "Time: ".$messageTime." ".$SEPARATOR." ";
 	}
 	
 	for($i=0;$i<=count($queueMessages)-1;$i++) {
