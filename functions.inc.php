@@ -30,6 +30,7 @@ function printHourFormats($ELEMENT_NAME,$ELEMENT_SELECTED)
 	}
 	echo "</select>";
 }
+
 function printTimeFormats($ELEMENT_NAME,$ELEMENT_SELECTED)
 
 
@@ -163,17 +164,17 @@ function outputMessages($queueMessages) {
 		switch ($HOUR_FORMAT) {
 			
 			case "12":
-				$messageTime = date($TIME_FORMAT,now());
+				$messageTime = date($TIME_FORMAT);
 				break;
 				
 			case "24":
 				
-				$messageTime = date($TIME_FORMAT,now());
+				$messageTime = date($TIME_FORMAT);
 				
 				break;
 		}
 		
-		echo "Message time: ".$messageTime."\n";
+		logEntry( "Message time: ".$messageTime);
 	}
 	
 	for($i=0;$i<=count($queueMessages)-1;$i++) {
