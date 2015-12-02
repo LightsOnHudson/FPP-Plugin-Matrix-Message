@@ -1,7 +1,7 @@
 <?php
 
 $pages = Array(
-	'name' => "MatrixMessage",
+	'name' => "Matrix Message",
 	'type' => "output",
 	'page' => "plugin_setup.php");
 
