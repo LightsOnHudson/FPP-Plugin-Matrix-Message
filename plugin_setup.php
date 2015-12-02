@@ -156,7 +156,7 @@ if($INCLUDE_TIME == 1 || $INCLUDE_TIME == "on") {
 echo "Time Format: ";
 printTimeFormats("TIME_FORMAT",$TIME_FORMAT);
 
-echo "<p/>\n";
+
 echo "Hour Format: ";
 printHourFormats("HOUR_FORMAT",$HOUR_FORMAT);
 
