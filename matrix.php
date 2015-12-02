@@ -69,6 +69,9 @@ $MATRIX_FONT_SIZE= $pluginSettings['FONT_SIZE'];
 $COLOR= urldecode($pluginSettings['COLOR']);
 $MATRIX_PIXELS_PER_SECOND = $pluginSettings['PIXELS_PER_SECOND'];
 
+$INCLUDE_TIME = urldecode($pluginSettings['INCLUDE_TIME']);
+$TIME_FORMAT = urldecode($pluginSettings['TIME_FORMAT']);
+$HOUR_FORMAT = urldecode($pluginSettings['HOUR_FORMAT']);
 
 //$Matrix = urldecode(ReadSettingFromFile("MATRIX",$pluginName));
 

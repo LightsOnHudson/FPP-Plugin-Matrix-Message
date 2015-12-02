@@ -37,24 +37,25 @@ function printTimeFormats($ELEMENT_NAME,$ELEMENT_SELECTED)
 
 	global $DEBUG;
 
-	$T_FORMATS = array("HH:MM","HH:MM:SS");
+	$T_FORMATS = array("h:i" => "HH:MM","h:i:s" => "HH:MM:SS");
 	
 
+	
+	
 	echo "<select  name=\"".$ELEMENT_NAME."\">";
 	
 	//print_r($PLUGINS_READ);
-	
-	
-	for($i=0;$i<=count($T_FORMATS)-1;$i++) {
+	foreach($T_FORMATS as $key => $value)
+	{
 		
 		
 		
-		if($T_FORMATS[$i] == $ELEMENT_SELECTED) {
+		if($key == $ELEMENT_SELECTED) {
 
-			echo "<option selected value=\"" . $ELEMENT_SELECTED . "\">" . $ELEMENT_SELECTED . "</option>";
+			echo "<option selected value=\"" . $key . "\">" . $value . "</option>";
 		} else {
 
-			echo "<option value=\"" . $T_FORMATS[$i] . "\">" . $T_FORMATS[$i] . "</option>";
+			echo "<option value=\"" . $key . "\">" .  $value . "</option>";
 		}
 
 	}
@@ -105,7 +106,7 @@ function createMatrixEventFile() {
 }
 function outputMessages($queueMessages) {
 
-	global $pluginDirectory,$MESSAGE_TIMEOUT, $fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix,$MATRIX_FONT,$MATRIX_FONT_SIZE,$MATRIX_PIXELS_PER_SECOND,$COLOR;
+	global $pluginDirectory,$MESSAGE_TIMEOUT, $fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix,$MATRIX_FONT,$MATRIX_FONT_SIZE,$MATRIX_PIXELS_PER_SECOND,$COLOR, $INCLUDE_TIME, $TIME_FORMAT, $HOUR_FORMAT;
 
 	//print_r($queueMessages);
 
@@ -155,6 +156,24 @@ function outputMessages($queueMessages) {
 
 	enableMatrixToolOutput();
 
+	$messageText = "";
+	
+	if($INCLUDE_TIME == 1 || $INCLUDE_TIME == "on") {
+		
+		switch ($HOUR_FORMAT) {
+			
+			case "12":
+				$messageTime = date($TIME_FORMAT,now());
+				break;
+				
+			case "24":
+				
+				$messageTime = date($TIME_FORMAT,now());
+				
+				break;
+		}
+	}
+	
 	for($i=0;$i<=count($queueMessages)-1;$i++) {
 
 		$messageParts = explode("|",$queueMessages[$i]);
@@ -165,7 +184,7 @@ function outputMessages($queueMessages) {
 		//echo "2: " .$messageParts[2]."\n";
 		//echo "3: ".$messageParts[3]."\n";
 
-		$messageText = urldecode($messageParts[1]);
+		$messageText .= urldecode($messageParts[1]);
 
 		//echo "Sending message: ".$messageText." to matrix FIFO\n";
 
