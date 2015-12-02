@@ -46,6 +46,9 @@ if(isset($_POST['submit']))
 	WriteSettingToFile("MESSAGE_TIMEOUT",urlencode($_POST["MESSAGE_TIMEOUT"]),$pluginName);
 	
 	WriteSettingToFile("MATRIX",urlencode($_POST["MATRIX"]),$pluginName);
+	WriteSettingToFile("INCLUDE_TIME",urlencode($_POST["INCLUDE_TIME"]),$pluginName);
+	WriteSettingToFile("TIME_FORMAT",urlencode($_POST["TIME_FORMAT"]),$pluginName);
+	WriteSettingToFile("HOUR_FORMAT",urlencode($_POST["HOUR_FORMAT"]),$pluginName);	
 }
 
 	
@@ -63,6 +66,11 @@ $FONT= $pluginSettings['FONT'];
 $FONT_SIZE= $pluginSettings['FONT_SIZE'];
 $PIXELS_PER_SECOND= $pluginSettings['PIXELS_PER_SECOND'];
 $COLOR= urldecode($pluginSettings['COLOR']);
+
+$INCLUDE_TIME = urldecode($pluginSettings['INCLUDE_TIME']);
+$TIME_FORMAT = urldecode($pluginSettings['TIME_FORMAT']);
+$HOUR_FORMAT = urldecode($pluginSettings['HOUR_FORMAT']);
+
 
 
 	
@@ -136,6 +144,26 @@ PrintMatrixList("MATRIX",$Matrix);
 
 echo "<p/>\n";
 
+echo "Include Time: ";
+
+if($INCLUDE_TIME == 1 || $INCLUDE_TIME == "on") {
+	echo "<input type=\"checkbox\" checked name=\"INCLUDE_TIME\"> \n";
+	//PrintSettingCheckbox("Radio Station", "ENABLED", $restart = 0, $reboot = 0, "ON", "OFF", $pluginName = $pluginName, $callbackName = "");
+} else {
+	echo "<input type=\"checkbox\"  name=\"INCLUDE_TIME\"> \n";
+}
+
+echo "Time Format: ";
+printTimeFormats("TIME_FORMAT",$TIME_FORMAT);
+
+echo "<p/>\n";
+echo "Hour Format: ";
+printHourFormats("HOUR_FORMAT",$HOUR_FORMAT);
+
+
+
+
+echo "<p/> \n";
 echo "Include Plugins in Matrix output: \n";
 printPluginsInstalled();
 

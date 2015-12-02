@@ -1,5 +1,66 @@
 <?php
 
+function printHourFormats($ELEMENT_NAME,$ELEMENT_SELECTED)
+
+
+{
+
+	global $DEBUG;
+
+	$T_FORMATS = array("12","24");
+
+
+	echo "<select  name=\"".$ELEMENT_NAME."\">";
+
+	//print_r($PLUGINS_READ);
+
+
+	for($i=0;$i<=count($T_FORMATS)-1;$i++) {
+
+
+
+		if($T_FORMATS[$i] == $ELEMENT_SELECTED) {
+
+			echo "<option selected value=\"" . $ELEMENT_SELECTED . "\">" . $ELEMENT_SELECTED . " HR</option>";
+		} else {
+
+			echo "<option value=\"" . $T_FORMATS[$i] . "\">" . $T_FORMATS[$i] . " HR</option>";
+		}
+
+	}
+	echo "</select>";
+}
+function printTimeFormats($ELEMENT_NAME,$ELEMENT_SELECTED)
+
+
+{
+
+	global $DEBUG;
+
+	$T_FORMATS = array("HH:MM","HH:MM:SS");
+	
+
+	echo "<select  name=\"".$ELEMENT_NAME."\">";
+	
+	//print_r($PLUGINS_READ);
+	
+	
+	for($i=0;$i<=count($T_FORMATS)-1;$i++) {
+		
+		
+		
+		if($T_FORMATS[$i] == $ELEMENT_SELECTED) {
+
+			echo "<option selected value=\"" . $ELEMENT_SELECTED . "\">" . $ELEMENT_SELECTED . "</option>";
+		} else {
+
+			echo "<option value=\"" . $T_FORMATS[$i] . "\">" . $T_FORMATS[$i] . "</option>";
+		}
+
+	}
+	echo "</select>";
+}
+
 function createMatrixEventFile() {
 
 	global $eventDirectory,$pluginDirectory,$pluginName,$scriptDirectory;
