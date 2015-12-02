@@ -172,6 +172,8 @@ function outputMessages($queueMessages) {
 				
 				break;
 		}
+		
+		echo "Message time: ".$messageTime."\n";
 	}
 	
 	for($i=0;$i<=count($queueMessages)-1;$i++) {
