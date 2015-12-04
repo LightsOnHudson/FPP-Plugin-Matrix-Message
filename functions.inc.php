@@ -193,7 +193,7 @@ function outputMessages($queueMessages) {
 
 		//echo "Sending message: ".$messageText." to matrix FIFO\n";
 
-		$cmd = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script." --blockname \"".$Matrix."\" --color '".$COLOR."' --font ".$MATRIX_FONT." --fontsize ".$MATRIX_FONT_SIZE." --pixelspersecond ".$MATRIX_PIXELS_PER_SECOND. " --message \"".urldecode($messageText)."\"";
+		$cmd = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script." --blockname \"".urldecode($Matrix)."\" --color '".$COLOR."' --font ".urldecode($MATRIX_FONT)." --fontsize ".$MATRIX_FONT_SIZE." --pixelspersecond ".$MATRIX_PIXELS_PER_SECOND. " --message \"".urldecode($messageText)."\"";
 
 		//echo "p10 output cmd: ".$cmd."\n";
 
