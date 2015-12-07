@@ -189,7 +189,7 @@ function outputMessages($queueMessages) {
 		//echo "2: " .$messageParts[2]."\n";
 		//echo "3: ".$messageParts[3]."\n";
 
-		$messageText .= urldecode($messageParts[1]);
+		$messageText = urldecode($messageParts[1]);
 
 		//echo "Sending message: ".$messageText." to matrix FIFO\n";
 
