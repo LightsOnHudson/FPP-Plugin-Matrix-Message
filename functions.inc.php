@@ -157,6 +157,7 @@ function outputMessages($queueMessages) {
 
 	enableMatrixToolOutput();
 
+	for($i=0;$i<=count($queueMessages)-1;$i++) {
 	$messageText = "";
 	
 	if($INCLUDE_TIME == 1 || $INCLUDE_TIME == "on") {
@@ -179,7 +180,7 @@ function outputMessages($queueMessages) {
 		$messageText = "Time: ".$messageTime." ".$SEPARATOR." ";
 	}
 	
-	for($i=0;$i<=count($queueMessages)-1;$i++) {
+	//for($i=0;$i<=count($queueMessages)-1;$i++) {
 
 		$messageParts = explode("|",$queueMessages[$i]);
 
@@ -189,11 +190,11 @@ function outputMessages($queueMessages) {
 		//echo "2: " .$messageParts[2]."\n";
 		//echo "3: ".$messageParts[3]."\n";
 
-		$messageText = urldecode($messageParts[1]);
+		$messageText .= urldecode($messageParts[1]);
 
 		//echo "Sending message: ".$messageText." to matrix FIFO\n";
 
-		$cmd = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script." --blockname \"".urldecode($Matrix)."\" --color '".$COLOR."' --font ".urldecode($MATRIX_FONT)." --fontsize ".$MATRIX_FONT_SIZE." --pixelspersecond ".$MATRIX_PIXELS_PER_SECOND. " --message \"".urldecode($messageText)."\"";
+		$cmd = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script." --blockname \"".$Matrix."\" --color '".$COLOR."' --font ".$MATRIX_FONT." --fontsize ".$MATRIX_FONT_SIZE." --pixelspersecond ".$MATRIX_PIXELS_PER_SECOND. " --message \"".urldecode($messageText)."\"";
 
 		//echo "p10 output cmd: ".$cmd."\n";
 

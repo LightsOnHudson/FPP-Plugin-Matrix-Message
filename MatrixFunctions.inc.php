@@ -2,14 +2,14 @@
 
 function clearMatrix($matrix="") {
 
-	global $pluginDirectory, $fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix;
+	global $pluginDirectory, $fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix,$settings;;
 	
 	if($matrix == "") {
 		$matrix = $Matrix;
 	}
 	//	$cmdClear = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script." --blockname \"".$Matrix."\" --clearblock";
 
-	$cmdClear = "/opt/fpp/bin/fppmm -m \"".$matrix."\" -s 0";
+	$cmdClear = $settings['fppBinDir']."/fppmm -m \"".$matrix."\" -s 0";
 
 
 	logEntry("Matrix Clear cmd: ".$cmdClear);
