@@ -11,8 +11,11 @@ $myPid = getmypid();
 $DEBUG=false;
 
 $skipJSsettings = 1;
-include_once("/opt/fpp/www/config.php");
-include_once("/opt/fpp/www/common.php");
+$fppWWWPath = '/opt/fpp/www/';
+set_include_path(get_include_path() . PATH_SEPARATOR . $fppWWWPath);
+
+require("common.php");
+//include_once("/opt/fpp/www/common.php");
 include_once("functions.inc.php");
 include_once("MatrixFunctions.inc.php");
 include_once("excluded_plugins.inc.php");
@@ -119,9 +122,10 @@ if(file_exists($messageQueuePluginPath."functions.inc.php"))
 
 if($MESSAGE_QUEUE_PLUGIN_ENABLED) {
         $queueMessages = getNewPluginMessages($MATRIX_PLUGIN_OPTIONS);
-        if($queueMessages != null || $queueMessages != "") {
+	$messageCount = count($queueMessages);
+        if($messageCount >0 ) {
+        //if($queueMessages != null || $queueMessages != "") {
         	
-        //print_r($queueMessages);
 		outputMessages($queueMessages);
         } else {
         	logEntry("No messages file exists??");

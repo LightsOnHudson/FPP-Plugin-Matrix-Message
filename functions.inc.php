@@ -112,7 +112,7 @@ function outputMessages($queueMessages) {
 	//print_r($queueMessages);
 
 	if(count($queueMessages) <=0) {
-		//	echo "No messages to output \n";
+		logEntry("No messages to output ");
 		return;
 	}
 	
@@ -192,22 +192,12 @@ function outputMessages($queueMessages) {
 
 		$messageText .= urldecode($messageParts[1]);
 
-		//echo "Sending message: ".$messageText." to matrix FIFO\n";
 
 		$cmd = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script." --blockname \"".$Matrix."\" --color '".$COLOR."' --font ".$MATRIX_FONT." --fontsize ".$MATRIX_FONT_SIZE." --pixelspersecond ".$MATRIX_PIXELS_PER_SECOND. " --message \"".urldecode($messageText)."\"";
 
-		//echo "p10 output cmd: ".$cmd."\n";
-
 		logEntry("Matrix output cmd: ".$cmd);
 		exec($cmd,$outputResults);
-		//print_r($outputResults);
 
-		//	$cmd = "/bin/echo \"".$messageText. "\" > ".$matrixFIFO;
-		//	exec($cmd,$output);
-		//echo "sleeping ".$MESSAGE_TIMEOUT. " sending clear line then";
-		//	echo "sleeping: ".$MESSAGE_TIMEOUT." before clear \n";
-
-		//	sleep($MESSAGE_TIMEOUT);
 
 		sleep(1);
 		clearMatrix();
@@ -250,12 +240,14 @@ function printPluginsInstalled()
 		if(in_array($PLUGIN_INSTALLED_TEMP,$EXCLUDE_PLUGIN_ARRAY)) {
 			continue;
 		}
-		if(in_array($PLUGIN_INSTALLED_TEMP,$PLUGINS_READ)) {
-				
-			echo "<option selected value=\"" . $PLUGIN_INSTALLED_TEMP . "\">" . $PLUGIN_INSTALLED_TEMP . "</option>";
-		} else {
-
-			echo "<option value=\"" . $PLUGIN_INSTALLED_TEMP . "\">" . $PLUGIN_INSTALLED_TEMP . "</option>";
+		if((!substr($PLUGIN_INSTALLED_TEMP,0,1) == "." || !substr($PLUGIN_INSTALLED_TEMP,0,1) == "_")) {
+			if(in_array($PLUGIN_INSTALLED_TEMP,$PLUGINS_READ)) {
+					
+				echo "<option selected value=\"" . $PLUGIN_INSTALLED_TEMP . "\">" . $PLUGIN_INSTALLED_TEMP . "</option>";
+			} else {
+	
+				echo "<option value=\"" . $PLUGIN_INSTALLED_TEMP . "\">" . $PLUGIN_INSTALLED_TEMP . "</option>";
+			}
 		}
 
 	}
