@@ -240,7 +240,7 @@ function printPluginsInstalled()
 		if(in_array($PLUGIN_INSTALLED_TEMP,$EXCLUDE_PLUGIN_ARRAY)) {
 			continue;
 		}
-		if((!substr($PLUGIN_INSTALLED_TEMP,0,1) == "." || !substr($PLUGIN_INSTALLED_TEMP,0,1) == "_")) {
+		if((substr($PLUGIN_INSTALLED_TEMP,0,1) != "." && substr($PLUGIN_INSTALLED_TEMP,0,1) != "_")) {
 			if(in_array($PLUGIN_INSTALLED_TEMP,$PLUGINS_READ)) {
 					
 				echo "<option selected value=\"" . $PLUGIN_INSTALLED_TEMP . "\">" . $PLUGIN_INSTALLED_TEMP . "</option>";
