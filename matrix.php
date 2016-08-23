@@ -21,7 +21,7 @@ include_once("MatrixFunctions.inc.php");
 include_once("excluded_plugins.inc.php");
 require ("lock.helper.php");
 define('LOCK_DIR', '/tmp/');
-define('LOCK_SUFFIX', '.lock');
+define('LOCK_SUFFIX', $pluginName.'.lock');
 $messageQueue_Plugin = "MessageQueue";
 $MESSAGE_QUEUE_PLUGIN_ENABLED=false;
 
@@ -51,6 +51,7 @@ $ENABLED = $pluginSettings['ENABLED'];
 
 
 if($ENABLED != "ON") {
+
 	logEntry("Plugin Status: DISABLED Please enable in Plugin Setup to use & Restart FPPD Daemon");
 	lockHelper::unlock();
 	exit(0);
@@ -75,6 +76,8 @@ $MATRIX_PIXELS_PER_SECOND = $pluginSettings['PIXELS_PER_SECOND'];
 $INCLUDE_TIME = urldecode($pluginSettings['INCLUDE_TIME']);
 $TIME_FORMAT = urldecode($pluginSettings['TIME_FORMAT']);
 $HOUR_FORMAT = urldecode($pluginSettings['HOUR_FORMAT']);
+
+$DEBUG = urldecode($pluginSettings['DEBUG']);
 
 $SEPARATOR = "|";
 

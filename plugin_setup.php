@@ -1,5 +1,5 @@
 <?php
-$DEBUG=true;
+
 
 include_once "/opt/fpp/www/common.php";
 include_once "functions.inc.php";
@@ -71,29 +71,22 @@ $INCLUDE_TIME = urldecode($pluginSettings['INCLUDE_TIME']);
 $TIME_FORMAT = urldecode($pluginSettings['TIME_FORMAT']);
 $HOUR_FORMAT = urldecode($pluginSettings['HOUR_FORMAT']);
 
+$DEBUG = urldecode($pluginSettings['DEBUG']);
 
-
-	
-//	echo "Matrix : ".$Matrix."<br/>\n";
-
-	//echo $messageQueueFile."\n";
 	
 	if(file_exists($pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script))
 	{
 		logEntry($pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script." EXISTS: Enabling");
 		$FPP_MATRIX_PLUGIN_ENABLED=true;
-		//$cmdGetMatrixList = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script. " --getblocklist";
-		//exec($cmdGetMatrixList,$blockOutput);
+
 		createMatrixEventFile();
 	} else {
 		logEntry("FPP Matrix tools plugin is not installed, cannot use this plugin with out it");
 		echo "FPP Matrix Tools plugin is not installed. Install the plugin and revisit this page to continue";
 		exit(0);
-		//exit(0);
+	
 	}
-	//echo "sports read: ".$SPORTS."<br/> \n";
-//	echo "Loading Matrix panels:<br/> \n";
-	//ob_flush();
+
 ?>
 
 <html>
@@ -117,7 +110,7 @@ $HOUR_FORMAT = urldecode($pluginSettings['HOUR_FORMAT']);
 
 
 
-<form method="post" action="http://<? echo $_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT']?>/plugin.php?plugin=<?echo $pluginName;?>&page=plugin_setup.php">
+<form method="post" action="http://<? echo $_SERVER['SERVER_ADDR'].":".$_SERVER['SERVER_PORT']?>/plugin.php?plugin=<?echo $pluginName;?>&page=plugin_setup.php">
 
 
 <?
