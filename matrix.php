@@ -50,7 +50,7 @@ $ENABLED = $pluginSettings['ENABLED'];
 
 
 
-if($ENABLED != "1") {
+if($ENABLED != "ON") {
 	logEntry("Plugin Status: DISABLED Please enable in Plugin Setup to use & Restart FPPD Daemon");
 	lockHelper::unlock();
 	exit(0);

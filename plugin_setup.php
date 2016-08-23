@@ -35,7 +35,7 @@ if(isset($_POST['submit']))
 //	echo "Writring config fie <br/> \n";
 	WriteSettingToFile("PLUGINS",$PLUGINS,$pluginName);
 	
-	WriteSettingToFile("ENABLED",urlencode($_POST["ENABLED"]),$pluginName);
+//	WriteSettingToFile("ENABLED",urlencode($_POST["ENABLED"]),$pluginName);
 	WriteSettingToFile("FONT",urlencode($_POST["FONT"]),$pluginName);
 	WriteSettingToFile("FONT_SIZE",urlencode($_POST["FONT_SIZE"]),$pluginName);
 	WriteSettingToFile("PIXELS_PER_SECOND",urlencode($_POST["PIXELS_PER_SECOND"]),$pluginName);
@@ -127,12 +127,12 @@ $reboot=0;
 
 echo "ENABLE PLUGIN: ";
 
-if($ENABLED== 1 || $ENABLED == "on") {
-		echo "<input type=\"checkbox\" checked name=\"ENABLED\"> \n";
-//PrintSettingCheckbox("Radio Station", "ENABLED", $restart = 0, $reboot = 0, "ON", "OFF", $pluginName = $pluginName, $callbackName = "");
-	} else {
-		echo "<input type=\"checkbox\"  name=\"ENABLED\"> \n";
-}
+//if($ENABLED== 1 || $ENABLED == "on") {
+//		echo "<input type=\"checkbox\" checked name=\"ENABLED\"> \n";
+PrintSettingCheckbox("Matrix Message Plugin", "ENABLED", $restart = 0, $reboot = 0, "ON", "OFF", $pluginName = $pluginName, $callbackName = "");
+//	} else {
+//		echo "<input type=\"checkbox\"  name=\"ENABLED\"> \n";
+//}
 
 echo "<p/> \n";
 
