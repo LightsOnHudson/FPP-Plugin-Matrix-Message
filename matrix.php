@@ -123,6 +123,11 @@ if(file_exists($messageQueuePluginPath."functions.inc.php"))
         }
 
 
+if($DEBUG) {
+	logEntry("Arguments passed 0: ".$argv[0]);
+	logEntry("Arguments passed 1: ".$argv[1]);
+	logEntry("Arguments passed 2: ".$argv[2]);
+}
 if($MESSAGE_QUEUE_PLUGIN_ENABLED) {
         $queueMessages = getNewPluginMessages($MATRIX_PLUGIN_OPTIONS);
 	$messageCount = count($queueMessages);
