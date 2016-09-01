@@ -122,12 +122,14 @@ if(file_exists($messageQueuePluginPath."functions.inc.php"))
                 exit(0);
         }
 
+        if(isset($_GET['subscribedPlugin'])) {
+        	$subscribedPlugin = $_GET['subscribedPlugin'];
+        	logEntry("Only getting plugin messages for plugin: ".$subscribedPlugin);
+        	$MATRIX_PLUGIN_OPTIONS = $subscribedPlugin;
+        }
 
-if($DEBUG) {
-	logEntry("Arguments passed 0: ".$argv[0]);
-	logEntry("Arguments passed 1: ".$argv[1]);
-	logEntry("Arguments passed 2: ".$argv[2]);
-}
+        
+        
 if($MESSAGE_QUEUE_PLUGIN_ENABLED) {
         $queueMessages = getNewPluginMessages($MATRIX_PLUGIN_OPTIONS);
 	$messageCount = count($queueMessages);
