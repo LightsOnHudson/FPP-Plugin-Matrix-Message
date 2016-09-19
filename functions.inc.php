@@ -310,8 +310,16 @@ function printFontsInstalled($ELEMENT, $FONT)
 
 {
 
-        global $DEBUG,$PLUGINS,$pluginDirectory;
-	$fontsDirectory = "/usr/share/fonts/truetype/";
+	// this uses the fpp-matrix tools plugin to get the fonts that it can use!
+	
+	
+        global $DEBUG,$PLUGINS,$pluginDirectory, $fpp_matrixtools_Plugin_Script, $fpp_matrixtools_Plugin;
+        
+      //  $fpp_matrixtools_Plugin = "fpp-matrixtools";
+       // $fpp_matrixtools_Plugin_Script = "scripts/matrixtools";
+	
+        
+        $fontsDirectory = "/usr/share/fonts/truetype/";
 
 	//$FONTS_LIST_CMD = "/usr/bin/fc-list";
 	
@@ -319,8 +327,13 @@ function printFontsInstalled($ELEMENT, $FONT)
 	//if($DEBUG)
 	//	print_r($FONT_LIST);
 	
-        $FONTS_INSTALLED = directoryToArray($fontsDirectory, true);//, $recursive)($pluginDirectory);
+       // $FONTS_INSTALLED = directoryToArray($fontsDirectory, true);//, $recursive)($pluginDirectory);
 
+        $MatrixToolsFontsCMD = $pluginDirectory."/".$fpp_matrixtools_Plugin . "/".$fpp_matrixtools_Plugin_Script. " --getfontlist";
+        
+        system($MatrixToolsFontsCMD, $FONTS_INSTALLED);
+       
+        
 
         //print_r($PLUGINS_READ);
 
