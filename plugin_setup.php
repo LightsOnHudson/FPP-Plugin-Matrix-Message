@@ -209,6 +209,11 @@ echo "<p/> \n";
 <p>To report a bug, please file it against <?php echo $gitURL;?>
 </form>
 
+<form method="post" action="http://<? echo $_SERVER['SERVER_NAME']?>/plugin.php?plugin=<?echo $pluginName;?>&page=fontManagement.php">
+<input id="fontManagement" name="Font Management" type="submit" value="Font Management">
+</form>
+
+
 </fieldset>
 </div>
 <br />
