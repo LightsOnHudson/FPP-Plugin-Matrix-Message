@@ -5,7 +5,7 @@ function PrintOverlayMode($overlayMode) {
 	
 	global $DEBUG;
 	echo " 1 = FULL OVERLAY, 2 = TRANSPARENT, 3 = Transparent RGB \n";
-	echo "<p/> \n";
+
 	echo "<select name=\"OVERLAY_MODE\"> \n";
 	
 	for($i=1;$i<=3;$i++) {
