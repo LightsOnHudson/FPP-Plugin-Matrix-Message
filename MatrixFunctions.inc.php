@@ -37,7 +37,7 @@ function clearMatrix($matrix="") {
 }
 
 function enableMatrixToolOutput($matrix="") {
-	global $pluginDirectory,$fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix, $overlayMode;
+	global $settings, $pluginDirectory,$fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix, $overlayMode;
 	
 	if($overlayMode == "") {
 		$overlayMode = "1";
@@ -47,7 +47,36 @@ function enableMatrixToolOutput($matrix="") {
 		$matrix = $Matrix;
 	}
 
+	switch ($overlayMode) {
+		
+		case "0":
+			$overlayModeCMD = "off";
+			break;
+			
+		case "1":
+			$overlayModeCMD = "on";
+			break;
+			
+		case "2":
+			
+			$overlayModeCMD = "transparent";
+			break;
+				
+		case "3":
+					
+			$overlayModeCMD = "transparentrgb";
+			break;
+					
+		default:
+			
+			$overlayModeCMD = "on";
+			
+	}
+	
 	$cmdEnable = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script. " --blockname \"".$matrix."\" --enable ".$overlayMode;//1";
+	
+	$cmdEnable = $settings['fppBinDir']."/fppmm -m \"".$matrix."\" -o ".$overlayModeCMD;
+	
 	logEntry("Matrix Enable cmd: ".$cmdEnable);
 	//echo "p10 enable: ".$cmdEnable."\n";
 
