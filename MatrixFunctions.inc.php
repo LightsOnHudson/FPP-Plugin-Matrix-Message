@@ -1,4 +1,23 @@
 <?php
+//display the various overlay modes for matrix tools
+
+function PrintOverlayMode($overlayMode) {
+	
+	global $DEBUG;
+	echo " 1 = FULL OVERLAY, 2 = TRANSPARENT, 3 = Transparent RGB \n";
+	echo "<p/> \n";
+	echo "<select name=\"OVERLAY_MODE\"> \n";
+	
+	for($i=1;$i<=3;$i++) {
+		
+		if($overlayMode == $i) {
+			echo "<option selected value=\"".$i."\">".$i."</option> \n";
+		} else {
+			echo "<option value=\"".$i."\">".$i."</option> \n";
+		}	
+	}
+	echo "</select> \n";
+}
 
 function clearMatrix($matrix="") {
 
@@ -18,13 +37,17 @@ function clearMatrix($matrix="") {
 }
 
 function enableMatrixToolOutput($matrix="") {
-	global $pluginDirectory,$fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix;
+	global $pluginDirectory,$fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix, $overlayMode;
+	
+	if($overlayMode == "") {
+		$overlayMode = "1";
+	}
 
 	if($matrix =="" ) {
 		$matrix = $Matrix;
 	}
 
-	$cmdEnable = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script. " --blockname \"".$matrix."\" --enable 1";
+	$cmdEnable = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script. " --blockname \"".$matrix."\" --enable ".$overlayMode;//1";
 	logEntry("Matrix Enable cmd: ".$cmdEnable);
 	//echo "p10 enable: ".$cmdEnable."\n";
 

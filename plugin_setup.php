@@ -49,6 +49,7 @@ if(isset($_POST['submit']))
 	WriteSettingToFile("INCLUDE_TIME",urlencode($_POST["INCLUDE_TIME"]),$pluginName);
 	WriteSettingToFile("TIME_FORMAT",urlencode($_POST["TIME_FORMAT"]),$pluginName);
 	WriteSettingToFile("HOUR_FORMAT",urlencode($_POST["HOUR_FORMAT"]),$pluginName);	
+	WriteSettingToFile("OVERLAY_MODE",urlencode($_POST["OVERLAY_MODE"]),$pluginName);
 }
 
 	
@@ -72,7 +73,11 @@ $TIME_FORMAT = urldecode($pluginSettings['TIME_FORMAT']);
 $HOUR_FORMAT = urldecode($pluginSettings['HOUR_FORMAT']);
 
 $DEBUG = urldecode($pluginSettings['DEBUG']);
+$overlayMode = urldecode($pluginSettings['OVERLAY_MODE']);
 
+if($overlayMode == "") {
+	$overlayMode = "1";
+}
 	
 	if(file_exists($pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script))
 	{
@@ -133,6 +138,13 @@ echo "<p/> \n";
 echo "Matrix Name: ";
 
 PrintMatrixList("MATRIX",$Matrix);
+
+
+echo "<p/>\n";
+
+echo "Overlay Mode: ";
+
+PrintOverlayMode($overlayMode);
 
 
 echo "<p/>\n";

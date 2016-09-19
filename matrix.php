@@ -83,7 +83,7 @@ $SEPARATOR = "|";
 
 //$Matrix = urldecode(ReadSettingFromFile("MATRIX",$pluginName));
 
-$Matrix = $pluginSettings['MATRIX'];
+$Matrix = urldecode($pluginSettings['MATRIX']);
 
 if(trim($Matrix == "")) {
 	logEntry("No Matrix name is  configured for output: exiting");
