@@ -331,24 +331,27 @@ function printFontsInstalled($ELEMENT, $FONT)
 
         $MatrixToolsFontsCMD = $pluginDirectory."/".$fpp_matrixtools_Plugin . "/".$fpp_matrixtools_Plugin_Script. " --getfontlist";
         
-        system($MatrixToolsFontsCMD, $FONTS_INSTALLED);
-       
+        exec($MatrixToolsFontsCMD, $fontsList);
+     //   print_r($fontsList);
         
+       
+       // $FONTS_INSTALLED = explode(" ",$fontsList);
 
+      //  print_r($FONTS_INSTALLED);
         //print_r($PLUGINS_READ);
 
         echo "<select name=\"".$ELEMENT."\">";
 
 
-        for($i=0;$i<=count($FONTS_INSTALLED)-1;$i++) {
-		$FONTINFO = pathinfo($FONTS_INSTALLED[$i]);
-                $FONTS_INSTALLED_TEMP = basename($FONTS_INSTALLED[$i],'.'.$FONTINFO['extension']);
+        for($i=1;$i<=count($fontsList)-1;$i++) {
+	//	$FONTINFO = pathinfo($FONTS_INSTALLED[$i]);
+       //         $FONTS_INSTALLED_TEMP = basename($FONTS_INSTALLED[$i],'.'.$FONTINFO['extension']);
 
-			if($FONTS_INSTALLED_TEMP == $FONT) {
+			if($fontsList[$i] == $FONT) {
 			
-                       		 echo "<option selected value=\"" . $FONTS_INSTALLED_TEMP . "\">" . $FONTS_INSTALLED_TEMP . "</option>";
+                       		 echo "<option selected value=\"" . $FONT . "\">" . $FONT . "</option>";
                        } else { 
-			echo "<option value=\"" . $FONTS_INSTALLED_TEMP . "\">" . $FONTS_INSTALLED_TEMP . "</option>";
+			echo "<option value=\"" . $fontsList[$i] . "\">" . $fontsList[$i] . "</option>";
 			}
         }
         echo "</select>";
