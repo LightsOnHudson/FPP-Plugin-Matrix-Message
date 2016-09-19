@@ -84,6 +84,7 @@ $SEPARATOR = "|";
 //$Matrix = urldecode(ReadSettingFromFile("MATRIX",$pluginName));
 
 $Matrix = urldecode($pluginSettings['MATRIX']);
+$overlayMode = urldecode($pluginSettings['OVERLAY_MODE']);
 
 if(trim($Matrix == "")) {
 	logEntry("No Matrix name is  configured for output: exiting");
