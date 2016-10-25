@@ -262,7 +262,7 @@ function printPixelsPerSecond($ELEMENT, $PIXELS_PER_SECOND)
         global $PLUGINS,$pluginDirectory;
 
         //updated to 40, Nov 9 2015
-        $MAX_PIXELS_PER_SECOND = 40;
+        $MAX_PIXELS_PER_SECOND = 99;
 
         echo "<select name=\"".$ELEMENT."\">";
 
