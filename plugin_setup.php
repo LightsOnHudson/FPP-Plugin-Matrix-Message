@@ -7,7 +7,7 @@ include_once "commonFunctions.inc.php";
 include_once "MatrixFunctions.inc.php";
 
 $pluginName = "MatrixMessage";
-$pluginVersion ="2.0";
+$pluginVersion ="2.1";
 
 $fpp_matrixtools_Plugin = "fpp-matrixtools";
 $fpp_matrixtools_Plugin_Script = "scripts/matrixtools";
