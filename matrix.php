@@ -3,6 +3,7 @@
 error_reporting(0);
 ob_flush();flush();
 //TODO:
+//Oct 31: Installed the ability to send a message directly from a plugin using 'subscribedPlugin' and 'onDemandMessage'
 
 
 $pluginName ="MatrixMessage";
