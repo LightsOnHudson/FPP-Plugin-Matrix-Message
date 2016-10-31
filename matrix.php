@@ -123,17 +123,33 @@ if(file_exists($messageQueuePluginPath."functions.inc.php"))
                 exit(0);
         }
 
-        if(isset($_GET['subscribedPlugin'])) {
-        	$subscribedPlugin = $_GET['subscribedPlugin'];
-        	logEntry("Only getting plugin messages for plugin: ".$subscribedPlugin);
-        	$MATRIX_PLUGIN_OPTIONS = $subscribedPlugin;
-        }
+if(isset($_GET['subscribedPlugin'])) {
+    $subscribedPlugin = $_GET['subscribedPlugin'];
+    logEntry("Only getting plugin messages for plugin: ".$subscribedPlugin);
+    $MATRIX_PLUGIN_OPTIONS = $subscribedPlugin;
+}
+
+if(isset($_GET['onDemandMessage'])) {
+	$onDemandMessage = $_GET['onDemandMessage'];
+	logEntry("Receiving an onDemandMessage from subscribed plugin: ".$subscribedPlugin);
+	//$MATRIX_PLUGIN_OPTIONS = $subscribedPlugin;
+}
 
         
         
 if($MESSAGE_QUEUE_PLUGIN_ENABLED) {
+	if($onDemandMessage != "") {
+	
+		$queueMessages = array(time()."|".$onDemandMessage."|".$subscribedPlugin);
+		if($DEBUG) {
+			logEntry("On Demand message mode: ");
+			logEntry("Message 0: ".$queueMessages[0]);
+		}
+		
+	} else {
         $queueMessages = getNewPluginMessages($MATRIX_PLUGIN_OPTIONS);
-	$messageCount = count($queueMessages);
+		$messageCount = count($queueMessages);
+	}
         if($messageCount >0 ) {
         //if($queueMessages != null || $queueMessages != "") {
         	
