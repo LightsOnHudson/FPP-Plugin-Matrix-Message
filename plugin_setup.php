@@ -65,7 +65,7 @@ $ENABLED = $pluginSettings['ENABLED'];
 $Matrix = urldecode($pluginSettings['MATRIX']);
 //	$LAST_READ = urldecode(ReadSettingFromFile("LAST_READ",$pluginName));
 $LAST_READ = $pluginSettings['LAST_READ'];
-$FONT= $pluginSettings['FONT'];
+$FONT= urldecode($pluginSettings['FONT']);
 $FONT_SIZE= $pluginSettings['FONT_SIZE'];
 $PIXELS_PER_SECOND= $pluginSettings['PIXELS_PER_SECOND'];
 $COLOR= urldecode($pluginSettings['COLOR']);
@@ -198,6 +198,16 @@ if($COLOR == "") {
 }
 echo "<input type=\"text\" name=\"COLOR\" value=\"".$COLOR."\"> \n";
 echo "<p/> \n";
+echo "<hr> \n";
+echo "Example text: \n";
+echo "<hr/> \n";
+$messageText="This is an example";
+echo "<marquee behavior=\"scroll\" scrollamount=\"5\" direction=\"left\" onmouseover=\"this.stop();\" onmouseout=\"this.start();\">\n";
+echo "<font face=\"".$FONT."\" size=\"+".$FONT_SIZE."\"> \n";
+
+echo preg_replace('!\s+!', ' ', $messageText);
+echo "</font> \n";
+echo "</marquee> \n";
 ?>
 <p/>
 <input id="submit_button" name="submit" type="submit" class="buttons" value="Save Config">
