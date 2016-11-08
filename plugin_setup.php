@@ -203,7 +203,7 @@ echo "Example text: \n";
 echo "<hr/> \n";
 $messageText="Font: ".$FONT." Example";
 echo "<marquee behavior=\"scroll\" scrollamount=\"5\" direction=\"left\" onmouseover=\"this.stop();\" onmouseout=\"this.start();\">\n";
-echo "<font face=\"".$FONT."\" size=\"+".$FONT_SIZE."\"> \n";
+echo "<font face=\"".$FONT."\" size=\"+".$FONT_SIZE."\" color=\"".$COLOR."\"> \n";
 
 echo preg_replace('!\s+!', ' ', $messageText);
 echo "</font> \n";
