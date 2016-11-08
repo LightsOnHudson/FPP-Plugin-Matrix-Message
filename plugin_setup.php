@@ -201,7 +201,7 @@ echo "<p/> \n";
 echo "<hr> \n";
 echo "Example text: \n";
 echo "<hr/> \n";
-$messageText="This is an example";
+$messageText="Font: ".$FONT." Example";
 echo "<marquee behavior=\"scroll\" scrollamount=\"5\" direction=\"left\" onmouseover=\"this.stop();\" onmouseout=\"this.start();\">\n";
 echo "<font face=\"".$FONT."\" size=\"+".$FONT_SIZE."\"> \n";
 
