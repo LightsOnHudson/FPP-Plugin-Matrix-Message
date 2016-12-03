@@ -178,6 +178,7 @@ if($MESSAGE_QUEUE_PLUGIN_ENABLED) {
 					$queueMessages = getNewPluginMessages($MATRIX_PLUGIN_OPTIONS);
 					$queueCount = count($queueMessages);
 					sleep(2);
+					logEntry("Queue Count: ".$queueCount);
 					
 				}
         	} while ($queueCount > 0) ;
