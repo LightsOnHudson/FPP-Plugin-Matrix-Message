@@ -37,14 +37,21 @@ $messageQueueFile = urldecode(ReadSettingFromFile("MESSAGE_FILE",$messageQueue_P
 
 
 
-if(($pid = lockHelper::lock()) === FALSE) {
-	exit(0);
 
-}
 
 $pluginConfigFile = $settings['configDirectory'] . "/plugin." .$pluginName;
 if (file_exists($pluginConfigFile))
 	$pluginSettings = parse_ini_file($pluginConfigFile);
+
+	
+	//if it is locked then exit. however; we may need to tell it to keep running in a message queue situation
+	//do not run it again - if the matrix is active. //this feature blocks this as well
+	//check for other active messages below
+	if(($pid = lockHelper::lock()) === FALSE) {
+		exit(0);
+	
+	}
+	
 
 //$ENABLED = trim(urldecode(ReadSettingFromFile("ENABLED",$pluginName)));
 $ENABLED = $pluginSettings['ENABLED'];
@@ -59,9 +66,7 @@ if($ENABLED != "ON") {
 
 }
 
-$pluginConfigFile = $settings['configDirectory'] . "/plugin." .$pluginName;
-if (file_exists($pluginConfigFile))
-	$pluginSettings = parse_ini_file($pluginConfigFile);
+
 
 
 //$MATRIX_PLUGIN_OPTIONS = urldecode(ReadSettingFromFile("PLUGINS",$pluginName));
@@ -137,9 +142,12 @@ if(isset($_GET['onDemandMessage'])) {
 }
 
         
+$MATRIX_ACTIVE = false;
         
 if($MESSAGE_QUEUE_PLUGIN_ENABLED) {
 	if($onDemandMessage != "") {
+		//got an ondemand message, and we may get more and more of these so we should output them all
+		
 	
 		$queueMessages = array(time()."|".$onDemandMessage."|".$subscribedPlugin);
 		if($DEBUG) {
@@ -156,8 +164,20 @@ if($MESSAGE_QUEUE_PLUGIN_ENABLED) {
 	
         if($messageCount >0 ) {
         //if($queueMessages != null || $queueMessages != "") {
-        	
-		outputMessages($queueMessages);
+        $MATRIX_ACTIVE = true;
+        $queueCount =0;
+        
+        	do {
+				outputMessages($queueMessages);
+				if($onDemandMessage != "") {
+					//get new messages
+					$queueMessages = null;
+					$queueMessages = getNewPluginMessages($MATRIX_PLUGIN_OPTIONS);
+					$queueCount = count($queueMessages);
+					
+				}
+        	} while ($queueCount > 0) ;
+        
         } else {
         	logEntry("No messages file exists??");
         }
