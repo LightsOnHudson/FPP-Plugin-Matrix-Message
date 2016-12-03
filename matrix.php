@@ -171,6 +171,16 @@ if($MESSAGE_QUEUE_PLUGIN_ENABLED) {
         	do {
         		logEntry("LOOP COUNT: ".$LOOP_COUNT++);
         		
+        		//extract the high water mark from the first message and write that back to the plugin! or
+        		//gets the same message twice in a flood of incomming on demand messages
+        		
+        		$messageParts = explode("|",$queueMessages[$i]);
+        		logEntry("MATRIX plugin: Writing high water for plugin:".$MATRIX_PLUGIN_OPTIONS." ".urldecode($messageQueueParts[0]));
+        		WriteSettingToFile("LAST_READ",urldecode($messageQueueParts[0]),$MATRIX_PLUGIN_OPTIONS);
+        		
+        		//echo "0: ".$messageParts[0]."\n";
+        		
+        		
 				outputMessages($queueMessages);
 				if($onDemandMessage != "") {
 					//get new messages
