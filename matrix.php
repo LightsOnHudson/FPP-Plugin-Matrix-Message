@@ -167,7 +167,10 @@ if($MESSAGE_QUEUE_PLUGIN_ENABLED) {
         $MATRIX_ACTIVE = true;
         $queueCount =0;
         
+        $LOOP_COUNT =0;
         	do {
+        		logEntry("LOOP COUNT: ".$LOOP_COUNT++);
+        		
 				outputMessages($queueMessages);
 				if($onDemandMessage != "") {
 					//get new messages
