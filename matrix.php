@@ -180,7 +180,7 @@ if($MESSAGE_QUEUE_PLUGIN_ENABLED) {
         	////	WriteSettingToFile("LAST_READ",urldecode($messageQueueParts[0]),$MATRIX_PLUGIN_OPTIONS);
         		
         		//echo "0: ".$messageParts[0]."\n";
-        		
+        		logEntry("-----------------------------------");
         		
 				outputMessages($queueMessages);
 			
