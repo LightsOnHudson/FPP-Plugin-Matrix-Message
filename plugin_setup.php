@@ -7,7 +7,9 @@ include_once "commonFunctions.inc.php";
 include_once "MatrixFunctions.inc.php";
 
 $pluginName = "MatrixMessage";
-$pluginVersion ="2.2";
+$pluginVersion ="2.3";
+
+//2.3 - Dec 4 2016 - Remove the mulitple demand messages code - was messing up
 
 //2.2 - Dec 2 2016 - Abaility to send multiple on demand messages and have them send in a stream!
 

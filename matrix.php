@@ -168,14 +168,14 @@ if($MESSAGE_QUEUE_PLUGIN_ENABLED) {
      //   $queueCount =0;
         
         $LOOP_COUNT =0;
-        	do {
-        		$queueCount =0;
-        		logEntry("LOOP COUNT: ".$LOOP_COUNT++);
+        	//do {
+        	//	$queueCount =0;
+        	//	logEntry("LOOP COUNT: ".$LOOP_COUNT++);
         		
         		//extract the high water mark from the first message and write that back to the plugin! or
         		//gets the same message twice in a flood of incomming on demand messages
         		
-        		$messageQueueParts = explode("|",$queueMessages[0]);
+        	//	$messageQueueParts = explode("|",$queueMessages[0]);
         		logEntry("MATRIX plugin: Writing high water for plugin:".$MATRIX_PLUGIN_OPTIONS." ".urldecode($messageQueueParts[0]));
         		WriteSettingToFile("LAST_READ",urldecode($messageQueueParts[0]),$MATRIX_PLUGIN_OPTIONS);
         		
@@ -183,16 +183,17 @@ if($MESSAGE_QUEUE_PLUGIN_ENABLED) {
         		
         		
 				outputMessages($queueMessages);
-				if($onDemandMessage != "") {
+			
+			//	if($onDemandMessage != "") {
 					//get new messages
-					$queueMessages = null;
-					$queueMessages = getNewPluginMessages($MATRIX_PLUGIN_OPTIONS);
-					$queueCount = count($queueMessages);
-					sleep(1);
-					logEntry("New message Queue Count: ".$queueCount);
+			//		$queueMessages = null;
+			//		$queueMessages = getNewPluginMessages($MATRIX_PLUGIN_OPTIONS);
+			//		$queueCount = count($queueMessages);
+			//		sleep(1);
+			//		logEntry("New message Queue Count: ".$queueCount);
 					
-				}
-        	} while ($queueCount > 0) ;
+			//	}
+        	//} while ($queueCount > 0) ;
         
         } else {
         	logEntry("No messages file exists??");
