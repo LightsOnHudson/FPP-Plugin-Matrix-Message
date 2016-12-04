@@ -206,6 +206,7 @@ function outputMessages($queueMessages) {
 		
 		WriteSettingToFile("LAST_READ",urldecode($messageParts[0]),urldecode($messageParts[2]));
 
+		sleep(1);
 		//$clearLineCmd = "/bin/echo \"\" > ".$matrixFIFO;
 		//exec($clearLineCmd,$clearOutput);
 
