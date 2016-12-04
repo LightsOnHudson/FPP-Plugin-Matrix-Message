@@ -201,8 +201,10 @@ function outputMessages($queueMessages) {
 
 		sleep(1);
 		clearMatrix();
-	
-
+		//write the last read right after the message goes out!!! back to the plugin that requested it!
+		logEntry("MATRIX PLUGIN: Writing last read for plugin: ".urldecode($messageParts[2]). ": ".urldecode($messageParts[0]));
+		
+		WriteSettingToFile("LAST_READ",urldecode($messageParts[0]),urldecode($messageParts[2]));
 
 		//$clearLineCmd = "/bin/echo \"\" > ".$matrixFIFO;
 		//exec($clearLineCmd,$clearOutput);
