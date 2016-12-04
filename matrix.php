@@ -165,7 +165,7 @@ if($MESSAGE_QUEUE_PLUGIN_ENABLED) {
         if($messageCount >0 ) {
         //if($queueMessages != null || $queueMessages != "") {
         $MATRIX_ACTIVE = true;
-     //   $queueCount =0;
+        $queueCount =0;
         
         $LOOP_COUNT =0;
         	do {
