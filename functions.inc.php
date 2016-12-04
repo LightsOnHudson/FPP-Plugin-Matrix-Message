@@ -191,7 +191,9 @@ function outputMessages($queueMessages) {
 		//echo "3: ".$messageParts[3]."\n";
 
 		$messageText .= urldecode($messageParts[1]);
-
+		logEntry("MATRIX PLUGIN: Writing last read for plugin BEFORE sending Message!: ".urldecode($messageParts[2]). ": ".urldecode($messageParts[0]));
+		
+		WriteSettingToFile("LAST_READ",urldecode($messageParts[0]),urldecode($messageParts[2]));
 
 		$cmd = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script." --blockname \"".$Matrix."\" --color '".$COLOR."' --font ".$MATRIX_FONT." --fontsize ".$MATRIX_FONT_SIZE." --pixelspersecond ".$MATRIX_PIXELS_PER_SECOND. " --message \"".urldecode($messageText)."\"";
 
@@ -202,11 +204,9 @@ function outputMessages($queueMessages) {
 		sleep(1);
 		clearMatrix();
 		//write the last read right after the message goes out!!! back to the plugin that requested it!
-		logEntry("MATRIX PLUGIN: Writing last read for plugin: ".urldecode($messageParts[2]). ": ".urldecode($messageParts[0]));
-		
-		WriteSettingToFile("LAST_READ",urldecode($messageParts[0]),urldecode($messageParts[2]));
 
-		sleep(1);
+
+		//sleep(1);
 		//$clearLineCmd = "/bin/echo \"\" > ".$matrixFIFO;
 		//exec($clearLineCmd,$clearOutput);
 
