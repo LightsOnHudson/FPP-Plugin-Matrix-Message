@@ -175,7 +175,7 @@ if($MESSAGE_QUEUE_PLUGIN_ENABLED) {
         		//extract the high water mark from the first message and write that back to the plugin! or
         		//gets the same message twice in a flood of incomming on demand messages
         		
-        	//	$messageQueueParts = explode("|",$queueMessages[0]);
+        		$messageQueueParts = explode("|",$queueMessages[0]);
         		logEntry("MATRIX plugin: Writing high water for plugin:".$MATRIX_PLUGIN_OPTIONS." ".urldecode($messageQueueParts[0]));
         		WriteSettingToFile("LAST_READ",urldecode($messageQueueParts[0]),$MATRIX_PLUGIN_OPTIONS);
         		
