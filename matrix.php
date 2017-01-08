@@ -7,6 +7,7 @@ ob_flush();flush();
 
 
 $pluginName ="MatrixMessage";
+$MatrixMessageVersion = "2.0";
 $myPid = getmypid();
 
 $DEBUG=false;
@@ -138,12 +139,14 @@ if(isset($_GET['subscribedPlugin'])) {
 if(isset($_GET['onDemandMessage'])) {
 	$onDemandMessage = $_GET['onDemandMessage'];
 	logEntry("Receiving an onDemandMessage from subscribed plugin: ".$subscribedPlugin);
-	//$MATRIX_PLUGIN_OPTIONS = $subscribedPlugin;
+	$MATRIX_PLUGIN_OPTIONS = $subscribedPlugin;
 }
 
         
 $MATRIX_ACTIVE = false;
         
+//TODO: Change this to get pluguin messages from their resprective datbases. once this is done, then can just get new plugin messages that way!
+
 if($MESSAGE_QUEUE_PLUGIN_ENABLED) {
 	if($onDemandMessage != "") {
 		//got an ondemand message, and we may get more and more of these so we should output them all
@@ -151,8 +154,8 @@ if($MESSAGE_QUEUE_PLUGIN_ENABLED) {
 	
 		$queueMessages = array(time()."|".$onDemandMessage."|".$subscribedPlugin);
 		if($DEBUG) {
-			logEntry("On Demand message mode: ");
-			logEntry("Message 0: ".$queueMessages[0]);
+			logEntry("MATRIX MESSAGE: On Demand message mode: ");
+			//logEntry("Message 0: ".$queueMessages[0]);
 		}
 		
 	} else {
@@ -169,13 +172,18 @@ if($MESSAGE_QUEUE_PLUGIN_ENABLED) {
         
         $LOOP_COUNT =0;
         	do {
-        		$queueCount =0;
-        		logEntry("LOOP COUNT: ".$LOOP_COUNT++);
-        		
+        	//	$queueCount =0;
+        		logEntry("MATRIX MESSAGE: LOOP COUNT: ".$LOOP_COUNT++);
+        		logEntry("MATRIX MESSAGE: QUEUE COUNT: ".$queueCount,0,__FILE__,__LINE__);// $sourceFile, $sourceLine)
+        		if($queueCount >0) {
+        			foreach ($queueMessages as $tmpMSG) {
+        				logEntry("MATRIX MESSAGE: LOOP ID: ".$LOOP_COUNT." MSG: ".$tmpMSG,0,__FILE__,__LINE__);
+        			}
+        		}
         		//extract the high water mark from the first message and write that back to the plugin! or
         		//gets the same message twice in a flood of incomming on demand messages
         		
-        		$messageQueueParts = explode("|",$queueMessages[0]);
+        		// Jan 3:$messageQueueParts = explode("|",$queueMessages[0]);
         	//	logEntry("MATRIX plugin: Writing high water for plugin:".$MATRIX_PLUGIN_OPTIONS." ".urldecode($messageQueueParts[0]));
         	////	WriteSettingToFile("LAST_READ",urldecode($messageQueueParts[0]),$MATRIX_PLUGIN_OPTIONS);
         		
@@ -185,18 +193,25 @@ if($MESSAGE_QUEUE_PLUGIN_ENABLED) {
 				outputMessages($queueMessages);
 			
 				if($onDemandMessage != "") {
+					if($DEBUG) {
+						logEntry("MATRIX MESSAGE: On demand mode, querying for new plugin messages");
+					}
 					//get new messages
 					$queueMessages = null;
+					
 					$queueMessages = getNewPluginMessages($MATRIX_PLUGIN_OPTIONS);
 					$queueCount = count($queueMessages);
 					sleep(1);
-					logEntry("New message Queue Count: ".$queueCount);
 					
+					
+
 				}
         	} while ($queueCount > 0) ;
         
+        	disableMatrixToolOutput();
+        	
         } else {
-        	logEntry("No messages file exists??");
+        	logEntry("MATRIX MESSAGE: No messages  exists??");
         }
         
 } else {
@@ -204,7 +219,7 @@ if($MESSAGE_QUEUE_PLUGIN_ENABLED) {
         lockHelper::unlock();
         exit(0);
 }
-disableMatrixToolOutput();
+//disableMatrixToolOutput();
 
 lockHelper::unlock();
 

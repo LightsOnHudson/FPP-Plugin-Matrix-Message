@@ -88,17 +88,19 @@ function enableMatrixToolOutput($matrix="") {
 }
 
 function disableMatrixToolOutput($matrix="") {
-	global $pluginDirectory,$fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix;
+	global $settings,$pluginDirectory,$fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix;
 
 	if($matrix =="" ) {
 		$matrix = $Matrix;
 	}
 
-	$cmdEnable = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script. " --blockname \"".$matrix."\" --enable 0";
-	logEntry("Matrix disable cmd: ".$cmdEnable);
+	//$cmdDisable = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script. " --blockname \"".$matrix."\" --enable 0";
+	$cmdDisable = $settings['fppBinDir']."/fppmm -m \"".$matrix."\" -o off";
+	
+	logEntry("Matrix disable cmd: ".$cmdDisable);
 	//echo "p10 enable: ".$cmdEnable."\n";
 
-	exec($cmdEnable,$enableOutput);
+	exec($cmdDisable,$disableOutput);
 	//echo "Enabled \n";
 
 	//print_r($enableOutput);

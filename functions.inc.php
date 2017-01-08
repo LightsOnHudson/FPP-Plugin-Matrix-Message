@@ -107,9 +107,12 @@ function createMatrixEventFile() {
 }
 function outputMessages($queueMessages) {
 
-	global $pluginDirectory,$MESSAGE_TIMEOUT, $fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix,$MATRIX_FONT,$MATRIX_FONT_SIZE,$MATRIX_PIXELS_PER_SECOND,$COLOR, $INCLUDE_TIME, $TIME_FORMAT, $HOUR_FORMAT,$SEPARATOR;
+	global $DEBUG, $pluginDirectory,$MESSAGE_TIMEOUT, $fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix,$MATRIX_FONT,$MATRIX_FONT_SIZE,$MATRIX_PIXELS_PER_SECOND,$COLOR, $INCLUDE_TIME, $TIME_FORMAT, $HOUR_FORMAT,$SEPARATOR;
 
 	//print_r($queueMessages);
+	
+	if($DEBUG)
+		logEntry("MESSAGE QUEUE: Inside function ".__METHOD__,0,__FILE__,__LINE__);
 
 	if(count($queueMessages) <=0) {
 		logEntry("No messages to output ");
@@ -148,7 +151,7 @@ function outputMessages($queueMessages) {
 				//echo $mycolor;
 				break;
 		}
-		logEntry("Selecting RANDOM COLOR: ".$mycolor);
+		logEntry("MATRIX MESSAGE: Selecting RANDOM COLOR: ".$mycolor);
 		//print_r ("End switch");
 		$COLOR=($mycolor);
 		//print_r ($COLOR);
@@ -415,17 +418,28 @@ function getRunningPlaylist() {
 	//now we should have had something
 	return $playlistName;
 }
-function logEntry($data) {
+function logEntry($data,$logLevel=1,$sourceFile, $sourceLine) {
 
-	global $logFile,$myPid;
+	global $logFile,$myPid, $LOG_LEVEL;
 
 	
+	if($logLevel <= $LOG_LEVEL) 
+		//return
+		
+		if($sourceFile == "") {
+			$sourceFile = $_SERVER['PHP_SELF'];
+		}
+		$data = $sourceFile." : [".$myPid."] ".$data;
+		
+		if($sourceLine !="") {
+			$data .= " (Line: ".$sourceLine.")";
+		}
+		
+		$logWrite= fopen($logFile, "a") or die("Unable to open file!");
+		fwrite($logWrite, date('Y-m-d h:i:s A',time()).": ".$data."\n");
+		fclose($logWrite);
 
-		$data = $_SERVER['PHP_SELF']." : [".$myPid."] ".$data;
-	
-	$logWrite= fopen($logFile, "a") or die("Unable to open file!");
-	fwrite($logWrite, date('Y-m-d h:i:s A',time()).": ".$data."\n");
-	fclose($logWrite);
+
 }
 
 
