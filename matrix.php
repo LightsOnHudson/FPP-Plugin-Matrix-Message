@@ -201,6 +201,8 @@ if($MESSAGE_QUEUE_PLUGIN_ENABLED) {
 					
 					$queueMessages = getNewPluginMessages($MATRIX_PLUGIN_OPTIONS);
 					$queueCount = count($queueMessages);
+					logEntry("Matrix Message NEW QUEUE COUNT: ".$queueCount);
+					
 					sleep(1);
 					
 					
