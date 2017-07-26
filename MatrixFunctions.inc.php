@@ -37,7 +37,7 @@ function clearMatrix($matrix="") {
 }
 
 function enableMatrixToolOutput($matrix="") {
-	global $settings, $pluginDirectory,$fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix, $overlayMode;
+	global $DEBUG, $fpp_version, $settings, $pluginDirectory,$fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix, $overlayMode;
 	
 	if($overlayMode == "") {
 		$overlayMode = "1";
@@ -75,9 +75,20 @@ function enableMatrixToolOutput($matrix="") {
 	
 	$cmdEnable = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script. " --blockname \"".$matrix."\" --enable ".$overlayMode;//1";
 	
-	$cmdEnable = $settings['fppBinDir']."/fppmm -m \"".$matrix."\" -t ".$overlayModeCMD;
+	switch($fpp_version) {
+		
+		case "1.9":
+			$cmdEnable = $settings['fppBinDir']."/fppmm -m \"".$matrix."\" -t ".$overlayModeCMD;
+			
+			break;
+			
+		default:
+			$cmdEnable = $settings['fppBinDir']."/fppmm -m \"".$matrix."\" -e";// ".$overlayModeCMD;
+			break;
+	}
 	
-	$cmdEnable = $settings['fppBinDir']."/fppmm -m \"".$matrix."\" -e";// ".$overlayModeCMD;
+	
+	
 	
 	logEntry("Matrix Enable cmd: ".$cmdEnable);
 	//echo "p10 enable: ".$cmdEnable."\n";
@@ -90,16 +101,28 @@ function enableMatrixToolOutput($matrix="") {
 }
 
 function disableMatrixToolOutput($matrix="") {
-	global $settings,$pluginDirectory,$fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix;
+	global $DEBUG, $fpp_version, $settings,$pluginDirectory,$fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix;
 
 	if($matrix =="" ) {
 		$matrix = $Matrix;
 	}
 
-	//$cmdDisable = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script. " --blockname \"".$matrix."\" --enable 0";
-	$cmdDisable = $settings['fppBinDir']."/fppmm -m \"".$matrix."\" -t off";
+	switch($fpp_version) {
+		
+		case "1.9":
+			$cmdDisable = $settings['fppBinDir']."/fppmm -m \"".$matrix."\" -t off";
+			
+			break;
+			
+		default:
+			$cmdDisable = $settings['fppBinDir']."/fppmm -m \"".$matrix."\" -d";
+			break;
+	}
 	
-	$cmdDisable = $settings['fppBinDir']."/fppmm -m \"".$matrix."\" -d";
+	//$cmdDisable = $pluginDirectory."/".$fpp_matrixtools_Plugin."/".$fpp_matrixtools_Plugin_Script. " --blockname \"".$matrix."\" --enable 0";
+	
+	
+	
 	
 	logEntry("Matrix disable cmd: ".$cmdDisable);
 	//echo "p10 enable: ".$cmdEnable."\n";

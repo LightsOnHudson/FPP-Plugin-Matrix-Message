@@ -1,6 +1,19 @@
 <?php
 
-
+//get the string between two characters
+function get_string_between ($str,$from,$to) {
+	
+	$string                                         = substr($str,strpos($str,$from)+strlen($from));
+	
+	if (strstr ($string,$to,TRUE) != FALSE) {
+		
+		$string                                     =   strstr ($string,$to,TRUE);
+		
+	}
+	
+	return $string;
+	
+}
 //update plugin
 
 function updatePluginFromGitHub($gitURL, $branch="master", $pluginName) {

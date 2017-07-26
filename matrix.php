@@ -1,6 +1,6 @@
 #!/usr/bin/php
 <?
-error_reporting(0);
+//error_reporting(0);
 ob_flush();flush();
 //TODO:
 //Oct 31: Installed the ability to send a message directly from a plugin using 'subscribedPlugin' and 'onDemandMessage'
@@ -21,6 +21,7 @@ require("common.php");
 include_once("functions.inc.php");
 include_once("MatrixFunctions.inc.php");
 include_once("excluded_plugins.inc.php");
+include_once("commonFunctions.inc.php");
 require ("lock.helper.php");
 define('LOCK_DIR', '/tmp/');
 define('LOCK_SUFFIX', $pluginName.'.lock');
@@ -67,7 +68,18 @@ if($ENABLED != "ON") {
 
 }
 
-
+//get the FPP version - needed for the various FPPmm commands
+$fpp_version = "v" . exec("git --git-dir=/opt/fpp/.git/ describe --tags", $output, $return_val);
+if ( $return_val != 0 )
+	$fpp_version = "Unknown";
+	unset($output);
+	logEntry("FPP version: ".$fpp_version);
+	
+	//example version is : v1.9-50-gfe8e9a5
+	//trim before the first -
+	$fpp_version = trim(get_string_between ($fpp_version,"v","-"));
+	
+	logEntry("FPP version: ".$fpp_version);
 
 
 //$MATRIX_PLUGIN_OPTIONS = urldecode(ReadSettingFromFile("PLUGINS",$pluginName));
@@ -192,7 +204,9 @@ if($MESSAGE_QUEUE_PLUGIN_ENABLED) {
         		
 				outputMessages($queueMessages);
 			
-				if($onDemandMessage != "") {
+				if($DEBUG) 
+					logEntry("MATRIX PLUGIN OPTIONS[0] = ".$MATRIX_PLUGIN_OPTIONS);
+				if((strtoupper($MATRIX_PLUGIN_OPTIONS) != "CFOLNANOMATRIXSYSTEM") && $onDemandMessage != "") {
 					if($DEBUG) {
 						logEntry("MATRIX MESSAGE: On demand mode, querying for new plugin messages");
 					}
