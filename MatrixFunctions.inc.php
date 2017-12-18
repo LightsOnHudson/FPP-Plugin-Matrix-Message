@@ -78,8 +78,8 @@ function enableMatrixToolOutput($matrix="") {
 	switch($fpp_version) {
 		
 		case "1.9":
-			$cmdEnable = $settings['fppBinDir']."/fppmm -m \"".$matrix."\" -t ".$overlayModeCMD;
-			
+			$cmdEnable = $settings['fppBinDir']."/fppmm -m \"".$matrix."\" -o ".$overlayModeCMD;
+		//	$cmdEnable = $settings['fppBinDir']."/fppmm -m \"".$matrix."\" -t ".$overlayModeCMD;
 			break;
 			
 		case "1.8":
