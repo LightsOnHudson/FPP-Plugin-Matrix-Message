@@ -115,8 +115,8 @@ function disableMatrixToolOutput($matrix="") {
 	switch($fpp_version) {
 		
 		case "1.9":
-			$cmdDisable = $settings['fppBinDir']."/fppmm -m \"".$matrix."\" -t off";
-			
+			$cmdDisable = $settings['fppBinDir']."/fppmm -m \"".$matrix."\" -o off";
+			//$cmdDisable = $settings['fppBinDir']."/fppmm -m \"".$matrix."\" -t off";
 			break;
 			
 		case "1.8":
