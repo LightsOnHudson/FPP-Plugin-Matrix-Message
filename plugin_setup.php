@@ -6,8 +6,10 @@ include_once "functions.inc.php";
 include_once "commonFunctions.inc.php";
 include_once "MatrixFunctions.inc.php";
 
+
+include_once 'version.inc';
 $pluginName = "MatrixMessage";
-$pluginVersion ="2.3";
+
 
 //2.3 - Dec 4 2016 - Remove the mulitple demand messages code - was messing up
 
