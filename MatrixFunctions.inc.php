@@ -82,6 +82,11 @@ function enableMatrixToolOutput($matrix="") {
 		//	$cmdEnable = $settings['fppBinDir']."/fppmm -m \"".$matrix."\" -t ".$overlayModeCMD;
 			break;
 			
+		case "1.10":
+			$cmdEnable = $settings['fppBinDir']."/fppmm -m \"".$matrix."\" -o ".$overlayModeCMD;
+			//	$cmdEnable = $settings['fppBinDir']."/fppmm -m \"".$matrix."\" -t ".$overlayModeCMD;
+			break;
+			
 		case "1.8":
 			$cmdEnable = $settings['fppBinDir']."/fppmm -m \"".$matrix."\" -t ".$overlayModeCMD;
 			
@@ -115,6 +120,11 @@ function disableMatrixToolOutput($matrix="") {
 	switch($fpp_version) {
 		
 		case "1.9":
+			$cmdDisable = $settings['fppBinDir']."/fppmm -m \"".$matrix."\" -o off";
+			//$cmdDisable = $settings['fppBinDir']."/fppmm -m \"".$matrix."\" -t off";
+			break;
+
+		case "1.10":
 			$cmdDisable = $settings['fppBinDir']."/fppmm -m \"".$matrix."\" -o off";
 			//$cmdDisable = $settings['fppBinDir']."/fppmm -m \"".$matrix."\" -t off";
 			break;
