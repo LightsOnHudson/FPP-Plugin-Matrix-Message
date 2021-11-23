@@ -108,7 +108,7 @@ function createMatrixEventFile() {
 function outputMessages($queueMessages) {
 
 	global $DEBUG, $pluginDirectory,$MESSAGE_TIMEOUT, $fpp_matrixtools_Plugin, $fpp_matrixtools_Plugin_Script,$Matrix,$MATRIX_FONT,$MATRIX_FONT_SIZE,$MATRIX_PIXELS_PER_SECOND,$COLOR, $INCLUDE_TIME, $TIME_FORMAT, $HOUR_FORMAT,$SEPARATOR;
-
+                                               		// sjt 11/22/2021 - possible bug with pipe entered by user as "$SEPARATOR"
 	//print_r($queueMessages);
 	
 	if($DEBUG)
